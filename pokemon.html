@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8d030;
+        }
+        .quiz-container {
+            margin-top: 50px;
+        }
+        .pokemon-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border: 5px solid black;
+            background-color: white;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        .score {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pokémon Quiz: Who's That Pokémon?</h1>
+    <div class="quiz-container">
+        <img id="pokemon-image" class="pokemon-img" src="" alt="Who's that Pokémon?">
+        <br><br>
+        <input type="text" id="answer" placeholder="Enter Pokémon Name">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="feedback"></p>
+        <p class="score">Score: <span id="score">0</span></p>
+        <br>
+        <button onclick="toggleMode()">Toggle Hard Mode</button>
+    </div>
+
+    <script>
+        const quizData = [
+            { name: "pikachu", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", description: "A yellow electric rodent with red cheeks." },
+            { name: "bulbasaur", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png", description: "A small quadruped with a plant bulb on its back." },
+            { name: "charmander", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png", description: "An orange lizard with a flame at the tip of its tail." },
+            { name: "squirtle", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png", description: "A small blue turtle with a hard shell." },
+            { name: "jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png", description: "A round pink balloon-like Pokémon with large blue eyes." },
+            { name: "lucario", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png", description: "A bipedal, canine-like Pokémon with aura-sensing abilities." },
+            { name: "greninja", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png", description: "A sleek, ninja-like frog Pokémon with a scarf-like tongue." },
+            { name: "garchomp", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png", description: "A dragon Pokémon with a shark-like appearance and sharp fins." },
+            { name: "tyranitar", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/248.png", description: "A massive dinosaur-like Pokémon with a rocky armored body." },
+            { name: "gardevoir", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/282.png", description: "A graceful, psychic-type Pokémon with flowing white robes." },
+            { name: "dialga", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png", description: "A Legendary Pokémon that controls time." },
+            { name: "palkia", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png", description: "A Legendary Pokémon that governs space." },
+            { name: "giratina", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png", description: "A Ghost/Dragon Pokémon that rules the Distortion World." },
+            { name: "arceus", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png", description: "The god-like Pokémon said to have shaped the universe." },
+            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A Fairy-type Legendary Pokémon that embodies life." },
+            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A Dark/Flying-type Legendary Pokémon that embodies destruction." },
+            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A Legendary Pokémon that maintains balance in the ecosystem." },
+            { name: "hoopa", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/720.png", description: "A Mythical Pokémon known for its rings that can warp space." },
+            { name: "volcanion", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/721.png", description: "A Mythical Fire/Water Pokémon that generates steam." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let hardMode = false;
+
+        function loadQuestion() {
+            if (hardMode) {
+                document.getElementById("pokemon-image").style.display = "none";
+                document.getElementById("feedback").innerText = quizData[currentQuestion].description;
+            } else {
+                document.getElementById("pokemon-image").style.display = "block";
+                document.getElementById("pokemon-image").src = quizData[currentQuestion].image;
+                document.getElementById("feedback").innerText = "";
+            }
+            document.getElementById("answer").value = "";
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
