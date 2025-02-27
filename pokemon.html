@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +46,7 @@
 <body>
     <h1>Pokémon Quiz: Who's That Pokémon?</h1>
     <audio autoplay loop>
-        <source src="https://vgmsite.com/soundtracks/pokemon-anime-theme/pokemon-theme.mp3" type="audio/mpeg">
+        <source src="data:audio/mp3;base64,//BASE64_ENCODED_AUDIO_STRING_HERE//" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <div class="quiz-container">
@@ -63,17 +62,50 @@
     </div>
     <script>
         const quizData = [
-            "pikachu", "bulbasaur", "charmander", "squirtle", "jigglypuff", "lucario", "dialga", "palkia", "giratina", "arceus",
-            "rayquaza", "kyogre", "groudon", "deoxys", "darkrai", "shaymin", "regigigas", "cresselia", "heatran", "manaphy",
-            "victini", "reshiram", "zekrom", "kyurem", "keldeo", "genesect", "meloetta", "xerneas", "yveltal", "zygarde",
-            "hoopa", "volcanion", "tapu koko", "tapu lele", "tapu bulu", "tapu fini", "cosmog", "cosmoem", "solgaleo", "lunala",
-            "necrozma", "magearna", "marshadow", "zeraora", "meltan", "melmetal", "zacian", "zamazenta", "eternatus", "kubfu", "urshifu",
-            "regieleki", "regidrago", "glastrier", "spectrier", "calyrex", "enamorus", "iron leaves", "walking wake", "wo-chien", "chien-pao",
-            "ting-lu", "chi-yu", "koraidon", "miraidon"
-        ].map(name => ({
-            name,
-            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Math.floor(Math.random() * 898) + 1}.png`,
-            description: "A legendary or mythical Pokémon from Generations 3-8."
+            { name: "pikachu", image: "25" },
+            { name: "bulbasaur", image: "1" },
+            { name: "charmander", image: "4" },
+            { name: "squirtle", image: "7" },
+            { name: "jigglypuff", image: "39" },
+            { name: "lucario", image: "448" },
+            { name: "dialga", image: "483" },
+            { name: "palkia", image: "484" },
+            { name: "giratina", image: "487" },
+            { name: "arceus", image: "493" },
+            { name: "rayquaza", image: "384" },
+            { name: "kyogre", image: "382" },
+            { name: "groudon", image: "383" },
+            { name: "deoxys", image: "386" },
+            { name: "darkrai", image: "491" },
+            { name: "shaymin", image: "492" },
+            { name: "regigigas", image: "486" },
+            { name: "cresselia", image: "488" },
+            { name: "heatran", image: "485" },
+            { name: "manaphy", image: "490" },
+            { name: "victini", image: "494" },
+            { name: "reshiram", image: "643" },
+            { name: "zekrom", image: "644" },
+            { name: "kyurem", image: "646" },
+            { name: "keldeo", image: "647" },
+            { name: "genesect", image: "649" },
+            { name: "meloetta", image: "648" },
+            { name: "xerneas", image: "716" },
+            { name: "yveltal", image: "717" },
+            { name: "zygarde", image: "718" },
+            { name: "hoopa", image: "720" },
+            { name: "volcanion", image: "721" },
+            { name: "solgaleo", image: "791" },
+            { name: "lunala", image: "792" },
+            { name: "necrozma", image: "800" },
+            { name: "marshadow", image: "802" },
+            { name: "zeraora", image: "807" },
+            { name: "zacian", image: "888" },
+            { name: "zamazenta", image: "889" },
+            { name: "eternatus", image: "890" }
+        ].map(pokemon => ({
+            name: pokemon.name,
+            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.image}.png`,
+            description: "A legendary or mythical Pokémon."
         }));
 
         let currentQuestion = 0;
