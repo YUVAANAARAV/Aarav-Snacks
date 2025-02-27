@@ -51,7 +51,7 @@
     </audio>
     <div class="quiz-container">
         <img id="pokemon-image" class="pokemon-img" src="" alt="Who's that Pokémon?" onerror="this.src='https://via.placeholder.com/250?text=No+Image'">
-        <p id="description" style="display: none;"></p>
+        <p id="description"></p>
         <br><br>
         <input type="text" id="answer" placeholder="Enter Pokémon Name">
         <button onclick="checkAnswer()">Submit</button>
@@ -62,51 +62,25 @@
     </div>
     <script>
         const quizData = [
-            { name: "pikachu", image: "25" },
-            { name: "bulbasaur", image: "1" },
-            { name: "charmander", image: "4" },
-            { name: "squirtle", image: "7" },
-            { name: "jigglypuff", image: "39" },
-            { name: "lucario", image: "448" },
-            { name: "dialga", image: "483" },
-            { name: "palkia", image: "484" },
-            { name: "giratina", image: "487" },
-            { name: "arceus", image: "493" },
-            { name: "rayquaza", image: "384" },
-            { name: "kyogre", image: "382" },
-            { name: "groudon", image: "383" },
-            { name: "deoxys", image: "386" },
-            { name: "darkrai", image: "491" },
-            { name: "shaymin", image: "492" },
-            { name: "regigigas", image: "486" },
-            { name: "cresselia", image: "488" },
-            { name: "heatran", image: "485" },
-            { name: "manaphy", image: "490" },
-            { name: "victini", image: "494" },
-            { name: "reshiram", image: "643" },
-            { name: "zekrom", image: "644" },
-            { name: "kyurem", image: "646" },
-            { name: "keldeo", image: "647" },
-            { name: "genesect", image: "649" },
-            { name: "meloetta", image: "648" },
-            { name: "xerneas", image: "716" },
-            { name: "yveltal", image: "717" },
-            { name: "zygarde", image: "718" },
-            { name: "hoopa", image: "720" },
-            { name: "volcanion", image: "721" },
-            { name: "solgaleo", image: "791" },
-            { name: "lunala", image: "792" },
-            { name: "necrozma", image: "800" },
-            { name: "marshadow", image: "802" },
-            { name: "zeraora", image: "807" },
-            { name: "zacian", image: "888" },
-            { name: "zamazenta", image: "889" },
-            { name: "eternatus", image: "890" }
-        ].map(pokemon => ({
-            name: pokemon.name,
-            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.image}.png`,
-            description: "A legendary or mythical Pokémon."
-        }));
+            { name: "pikachu", image: "25", description: "Electric-type Pokémon with yellow fur." },
+            { name: "bulbasaur", image: "1", description: "Grass/Poison-type with a plant bulb on its back." },
+            { name: "charmander", image: "4", description: "Fire-type lizard Pokémon with a flame on its tail." },
+            { name: "squirtle", image: "7", description: "Water-type turtle Pokémon with a hard shell." },
+            { name: "jigglypuff", image: "39", description: "Pink, round Pokémon that sings to put enemies to sleep." },
+            { name: "lucario", image: "448", description: "Fighting/Steel-type Pokémon that can sense aura." },
+            { name: "dialga", image: "483", description: "Legendary Steel/Dragon-type Pokémon that controls time." },
+            { name: "palkia", image: "484", description: "Legendary Water/Dragon-type Pokémon that controls space." },
+            { name: "giratina", image: "487", description: "Ghost/Dragon-type Pokémon that lives in the Distortion World." },
+            { name: "arceus", image: "493", description: "The god of all Pokémon, creator of the Pokémon universe." },
+            { name: "rayquaza", image: "384", description: "Dragon/Flying-type Pokémon that calms Kyogre and Groudon." },
+            { name: "kyogre", image: "382", description: "Legendary Water-type Pokémon that expands the sea." },
+            { name: "groudon", image: "383", description: "Legendary Ground-type Pokémon that expands landmasses." },
+            { name: "deoxys", image: "386", description: "DNA Pokémon that has multiple forms." },
+            { name: "darkrai", image: "491", description: "Dark-type Pokémon that induces nightmares." },
+            { name: "xerneas", image: "716", description: "Fairy-type Pokémon that represents life." },
+            { name: "yveltal", image: "717", description: "Dark/Flying-type Pokémon that represents destruction." },
+            { name: "zygarde", image: "718", description: "Dragon/Ground-type Pokémon that maintains balance." }
+        ];
 
         let currentQuestion = 0;
         let score = 0;
@@ -114,8 +88,8 @@
 
         function loadQuestion() {
             const pokemon = quizData[currentQuestion];
-            document.getElementById("pokemon-image").src = pokemon.image;
-            document.getElementById("description").innerText = pokemon.description;
+            document.getElementById("pokemon-image").src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.image}.png`;
+            document.getElementById("description").innerText = hardMode ? pokemon.description : "";
             document.getElementById("feedback").innerText = "";
             document.getElementById("answer").value = "";
         }
@@ -128,16 +102,18 @@
                 score++;
                 document.getElementById("score").innerText = score;
             } else {
-                document.getElementById("feedback").innerText = "Wrong! It's " + quizData[currentQuestion].name + "!";
+                document.getElementById("feedback").innerText = "Wrong! It's " + correctAnswer + "!";
             }
-            currentQuestion = (currentQuestion + 1) % quizData.length;
-            setTimeout(loadQuestion, 2000);
+            setTimeout(() => {
+                currentQuestion = (currentQuestion + 1) % quizData.length;
+                loadQuestion();
+            }, 2000);
         }
 
         function toggleMode() {
             hardMode = !hardMode;
             document.getElementById("pokemon-image").style.display = hardMode ? "none" : "block";
-            document.getElementById("description").style.display = hardMode ? "block" : "none";
+            loadQuestion();
         }
 
         window.onload = loadQuestion;
