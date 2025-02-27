@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: black;
-            color: cyan;
+            color: #00bcd4; /* Softer cyan/teal color */
         }
         .quiz-container {
             margin-top: 50px;
@@ -18,7 +18,7 @@
             width: 250px;
             height: 250px;
             object-fit: cover;
-            border: 5px solid cyan;
+            border: 5px solid #00bcd4;
             background-color: white;
         }
         input {
@@ -29,13 +29,13 @@
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: cyan;
-            color: black;
+            background-color: #008c9e; /* Softer teal */
+            color: white;
             border: none;
             cursor: pointer;
         }
         button:hover {
-            background-color: lightblue;
+            background-color: #00707a;
         }
         .score {
             font-size: 20px;
@@ -109,7 +109,4 @@
             document.getElementById("description").style.display = hardMode ? "block" : "none";
         }
 
-        window.onload = loadQuestion;
-    </script>
-</body>
-</html>
+        window.onload = loadQues
