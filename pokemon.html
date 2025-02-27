@@ -86,8 +86,9 @@
         }
 
         function checkAnswer() {
-            let userAnswer = document.getElementById("answer").value.toLowerCase();
-            if (userAnswer === quizData[currentQuestion].name) {
+            let userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            let correctAnswer = quizData[currentQuestion].name.toLowerCase();
+            if (userAnswer === correctAnswer) {
                 document.getElementById("feedback").innerText = "Correct!";
                 score++;
                 document.getElementById("score").innerText = score;
