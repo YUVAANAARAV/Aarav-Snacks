@@ -8,8 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: black;
-            color: #00bcd4; /* Softer cyan/teal color */
+            background-color: #bfdbf7;
+            color: #1e3a5f;
         }
         .quiz-container {
             margin-top: 50px;
@@ -18,8 +18,9 @@
             width: 250px;
             height: 250px;
             object-fit: cover;
-            border: 5px solid #00bcd4;
-            background-color: white;
+        }
+        .shadow {
+            filter: brightness(0%);
         }
         input {
             padding: 10px;
@@ -29,13 +30,13 @@
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #008c9e; /* Softer teal */
+            background-color: #1e3a5f;
             color: white;
             border: none;
             cursor: pointer;
         }
         button:hover {
-            background-color: #00707a;
+            background-color: #162d4f;
         }
         .score {
             font-size: 20px;
@@ -88,8 +89,14 @@
 
         function loadQuestion() {
             const pokemon = quizData[currentQuestion];
-            document.getElementById("pokemon-image").src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.image}.png`;
-            document.getElementById("description").innerText = hardMode ? pokemon.description : "";
+            const pokemonImage = document.getElementById("pokemon-image");
+            pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.image}.png`;
+            if (hardMode) {
+                pokemonImage.classList.add("shadow");
+            } else {
+                pokemonImage.classList.remove("shadow");
+            }
+            document.getElementById("description").innerText = hardMode ? "" : pokemon.description;
             document.getElementById("feedback").innerText = "";
             document.getElementById("answer").value = "";
         }
@@ -112,7 +119,6 @@
 
         function toggleMode() {
             hardMode = !hardMode;
-            document.getElementById("pokemon-image").style.display = hardMode ? "none" : "block";
             loadQuestion();
         }
 
