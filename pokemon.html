@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: black;
-            color: #00bcd4;
+            color: #00bcd4; /* Softer cyan/teal color */
         }
         .quiz-container {
             margin-top: 50px;
@@ -50,7 +51,7 @@
         Your browser does not support the audio element.
     </audio>
     <div class="quiz-container">
-        <img id="pokemon-image" class="pokemon-img" src="" alt="Who's that Pokémon?">
+        <img id="pokemon-image" class="pokemon-img" src="" alt="Who's that Pokémon?" onerror="this.src='https://via.placeholder.com/250?text=No+Image'">
         <p id="description" style="display: none;"></p>
         <br><br>
         <input type="text" id="answer" placeholder="Enter Pokémon Name">
@@ -62,20 +63,18 @@
     </div>
     <script>
         const quizData = [
-            { name: "pikachu", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", description: "A yellow electric rodent with red cheeks." },
-            { name: "bulbasaur", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png", description: "A small quadruped with a plant bulb on its back." },
-            { name: "charmander", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png", description: "An orange lizard with a flame at the tip of its tail." },
-            { name: "squirtle", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png", description: "A small blue turtle with a hard shell." },
-            { name: "jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png", description: "A round pink balloon-like Pokémon with large blue eyes." },
-            { name: "lucario", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png", description: "A bipedal, canine-like Pokémon with aura-sensing abilities." },
-            { name: "dialga", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png", description: "A legendary Pokémon that controls time." },
-            { name: "palkia", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png", description: "A legendary Pokémon that controls space." },
-            { name: "giratina", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png", description: "A ghostly dragon Pokémon that inhabits the Distortion World." },
-            { name: "arceus", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png", description: "The mythical Pokémon said to have created the universe." },
-            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A legendary deer Pokémon representing life." },
-            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A legendary bird Pokémon representing destruction." },
-            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A Pokémon that monitors the balance of the ecosystem." }
-        ];
+            "pikachu", "bulbasaur", "charmander", "squirtle", "jigglypuff", "lucario", "dialga", "palkia", "giratina", "arceus",
+            "rayquaza", "kyogre", "groudon", "deoxys", "darkrai", "shaymin", "regigigas", "cresselia", "heatran", "manaphy",
+            "victini", "reshiram", "zekrom", "kyurem", "keldeo", "genesect", "meloetta", "xerneas", "yveltal", "zygarde",
+            "hoopa", "volcanion", "tapu koko", "tapu lele", "tapu bulu", "tapu fini", "cosmog", "cosmoem", "solgaleo", "lunala",
+            "necrozma", "magearna", "marshadow", "zeraora", "meltan", "melmetal", "zacian", "zamazenta", "eternatus", "kubfu", "urshifu",
+            "regieleki", "regidrago", "glastrier", "spectrier", "calyrex", "enamorus", "iron leaves", "walking wake", "wo-chien", "chien-pao",
+            "ting-lu", "chi-yu", "koraidon", "miraidon"
+        ].map(name => ({
+            name,
+            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Math.floor(Math.random() * 898) + 1}.png`,
+            description: "A legendary or mythical Pokémon from Generations 3-8."
+        }));
 
         let currentQuestion = 0;
         let score = 0;
@@ -109,4 +108,7 @@
             document.getElementById("description").style.display = hardMode ? "block" : "none";
         }
 
-        window.onload = loadQues
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
