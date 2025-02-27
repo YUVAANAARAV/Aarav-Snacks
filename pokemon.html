@@ -8,7 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f8d030;
+            background-color: black;
+            color: cyan;
         }
         .quiz-container {
             margin-top: 50px;
@@ -17,23 +18,24 @@
             width: 250px;
             height: 250px;
             object-fit: cover;
-            border: 5px solid black;
+            border: 5px solid cyan;
             background-color: white;
         }
         input {
             padding: 10px;
             font-size: 16px;
+            color: black;
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #ff0000;
-            color: white;
+            background-color: cyan;
+            color: black;
             border: none;
             cursor: pointer;
         }
         button:hover {
-            background-color: #cc0000;
+            background-color: lightblue;
         }
         .score {
             font-size: 20px;
@@ -43,6 +45,10 @@
 </head>
 <body>
     <h1>Pokémon Quiz: Who's That Pokémon?</h1>
+    <audio autoplay loop>
+        <source src="https://vgmsite.com/soundtracks/pokemon-anime-theme/pokemon-theme.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <div class="quiz-container">
         <img id="pokemon-image" class="pokemon-img" src="" alt="Who's that Pokémon?">
         <p id="description" style="display: none;"></p>
@@ -54,7 +60,6 @@
         <br>
         <button onclick="toggleMode()">Toggle Hard Mode</button>
     </div>
-
     <script>
         const quizData = [
             { name: "pikachu", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", description: "A yellow electric rodent with red cheeks." },
@@ -63,14 +68,13 @@
             { name: "squirtle", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png", description: "A small blue turtle with a hard shell." },
             { name: "jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png", description: "A round pink balloon-like Pokémon with large blue eyes." },
             { name: "lucario", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png", description: "A bipedal, canine-like Pokémon with aura-sensing abilities." },
-            { name: "dialga", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png", description: "A steel dragon that controls time." },
-            { name: "palkia", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png", description: "A water dragon that governs space." },
-            { name: "giratina", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png", description: "A ghostly dragon from the Distortion World." },
-            { name: "darkrai", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/491.png", description: "A shadowy Pokémon that induces nightmares." },
-            { name: "arceus", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png", description: "The creator of the Pokémon world." },
-            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A majestic deer that grants eternal life." },
-            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A dark bird that absorbs life energy." },
-            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A guardian of balance that takes many forms." }
+            { name: "dialga", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png", description: "A legendary Pokémon that controls time." },
+            { name: "palkia", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png", description: "A legendary Pokémon that controls space." },
+            { name: "giratina", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png", description: "A ghostly dragon Pokémon that inhabits the Distortion World." },
+            { name: "arceus", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png", description: "The mythical Pokémon said to have created the universe." },
+            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A legendary deer Pokémon representing life." },
+            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A legendary bird Pokémon representing destruction." },
+            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A Pokémon that monitors the balance of the ecosystem." }
         ];
 
         let currentQuestion = 0;
