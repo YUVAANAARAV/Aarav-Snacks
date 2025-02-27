@@ -66,15 +66,14 @@
             { name: "garchomp", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png", description: "A dragon Pokémon with a shark-like appearance and sharp fins." },
             { name: "tyranitar", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/248.png", description: "A massive dinosaur-like Pokémon with a rocky armored body." },
             { name: "gardevoir", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/282.png", description: "A graceful, psychic-type Pokémon with flowing white robes." },
-            { name: "dialga", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png", description: "A Legendary Pokémon that controls time." },
-            { name: "palkia", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png", description: "A Legendary Pokémon that governs space." },
-            { name: "giratina", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png", description: "A Ghost/Dragon Pokémon that rules the Distortion World." },
-            { name: "arceus", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png", description: "The god-like Pokémon said to have shaped the universe." },
-            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A Fairy-type Legendary Pokémon that embodies life." },
-            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A Dark/Flying-type Legendary Pokémon that embodies destruction." },
-            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A Legendary Pokémon that maintains balance in the ecosystem." },
-            { name: "hoopa", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/720.png", description: "A Mythical Pokémon known for its rings that can warp space." },
-            { name: "volcanion", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/721.png", description: "A Mythical Fire/Water Pokémon that generates steam." }
+            { name: "rayquaza", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png", description: "A green serpentine dragon Pokémon that lives in the ozone layer." },
+            { name: "darkrai", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/491.png", description: "A dark-type Pokémon that causes nightmares." },
+            { name: "shaymin", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/492.png", description: "A small, hedgehog-like Pokémon that can change form." },
+            { name: "xerneas", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/716.png", description: "A majestic Fairy-type Pokémon that grants life energy." },
+            { name: "yveltal", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/717.png", description: "A dark, bird-like Pokémon that absorbs life energy." },
+            { name: "zygarde", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/718.png", description: "A serpentine Pokémon that maintains balance in the ecosystem." },
+            { name: "hoopa", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/720.png", description: "A mischievous Pokémon with the power to warp space." },
+            { name: "volcanion", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/721.png", description: "A Fire/Water-type Pokémon that emits steam from its body." }
         ];
 
         let currentQuestion = 0;
@@ -82,15 +81,26 @@
         let hardMode = false;
 
         function loadQuestion() {
-            if (hardMode) {
-                document.getElementById("pokemon-image").style.display = "none";
-                document.getElementById("feedback").innerText = quizData[currentQuestion].description;
-            } else {
-                document.getElementById("pokemon-image").style.display = "block";
-                document.getElementById("pokemon-image").src = quizData[currentQuestion].image;
-                document.getElementById("feedback").innerText = "";
-            }
+            document.getElementById("pokemon-image").src = quizData[currentQuestion].image;
             document.getElementById("answer").value = "";
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.toLowerCase();
+            if (userAnswer === quizData[currentQuestion].name) {
+                document.getElementById("feedback").innerText = "Correct!";
+                score++;
+                document.getElementById("score").innerText = score;
+            } else {
+                document.getElementById("feedback").innerText = "Wrong! It's " + quizData[currentQuestion].name + "!";
+            }
+            currentQuestion = (currentQuestion + 1) % quizData.length;
+            setTimeout(loadQuestion, 2000);
+        }
+
+        function toggleMode() {
+            hardMode = !hardMode;
+            document.getElementById("pokemon-image").style.display = hardMode ? "none" : "block";
         }
 
         window.onload = loadQuestion;
