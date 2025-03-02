@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Villain Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #00b4d8; /* Updated background color */
+            color: #03045e; /* Updated text color */
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            background: #1d1d1d; /* Dark background for contrast */
+            padding: 20px;
+            border-radius: 10px;
+            color: #f8f9fa;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0066b2; /* Marvel blue */
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #004494;
+        }
+        iframe {
+            display: none; /* Hide the video but keep audio playing */
+        }
+    </style>
+</head>
+<body>
+    <h1>Marvel Villain Quiz</h1>
+    <div class="quiz-container">
+        <p class="question" id="question">Loading question...</p>
+        <input type="text" id="answer" placeholder="Type your answer here">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="feedback"></p>
+        <button id="next-btn" onclick="loadQuestion()" style="display: none;">Next Question</button>
+        <p>Score: <span id="score">0</span></p>
+    </div>
+
+    <!-- YouTube Background Music -->
+    <iframe id="yt-audio" width="560" height="315"
+        src="https://www.youtube.com/embed/-BCvS6Q7O4E?autoplay=1&loop=1&playlist=-BCvS6Q7O4E&mute=0"
+        frameborder="0" allow="autoplay"></iframe>
+
+    <script>
+        const questions = [
+            { type: "villain", question: "Which Marvel villain seeks to wipe out half of the universe?", answer: "Thanos" },
+            { type: "hero", question: "Who is the main enemy of Spider-Man, often seen as a green menace?", answer: "Green Goblin" },
+            { type: "intention", question: "What is Magneto's goal in fighting against humanity?", answer: "Mutant supremacy" },
+            { type: "villain", question: "Which villain is known for ruling the Dark Dimension?", answer: "Dormammu" },
+            { type: "hero", question: "Who is the archenemy of Black Panther?", answer: "Killmonger" },
+            { type: "intention", question: "What is Loki's ultimate goal when attacking Earth in The Avengers?", answer: "To rule Earth" },
+            { type: "villain", question: "Which villain is an artificial intelligence bent on human extinction?", answer: "Ultron" },
+            { type: "hero", question: "Who is the nemesis of Captain America, known for his red skull?", answer: "Red Skull" },
+            { type: "villain", question: "Who is the primary enemy of the X-Men with time-travel abilities?", answer: "Apocalypse" },
+            { type: "intention", question: "What is Doctor Doom's main goal?", answer: "World domination" },
+            { type: "villain", question: "Which villain is a symbiote and often fights Spider-Man?", answer: "Venom" },
+            { type: "hero", question: "Who is the primary enemy of the Fantastic Four?", answer: "Doctor Doom" },
+            { type: "villain", question: "Who is the ruler of the Dark Elves in Thor: The Dark World?", answer: "Malekith" },
+            { type: "intention", question: "What was Ego the Living Planet's plan?", answer: "To expand himself across the universe" },
+            { type: "villain", question: "Who is a powerful cosmic entity and devourer of planets?", answer: "Galactus" },
+            { type: "hero", question: "Who is the main villain that fights Ant-Man in the first movie?", answer: "Yellowjacket" },
+            { type: "villain", question: "Which villain was created from an experiment with gamma radiation?", answer: "The Abomination" },
+            { type: "intention", question: "What was Hela's goal in Thor: Ragnarok?", answer: "To conquer Asgard" }
+        ];
+
+        while (questions.length < 70) {
+            questions.push(questions[Math.floor(Math.random() * questions.length)]);
+        }
+
+        let currentQuestion = null;
+        let score = 0;
+
+        function getRandomQuestion() {
+            return questions[Math.floor(Math.random() * questions.length)];
+        }
+
+        function loadQuestion() {
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("answer").value = "";
+
+            currentQuestion = getRandomQuestion();
+            if (currentQuestion) {
+                document.getElementById("question").textContent = currentQuestion.question;
+            }
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            let feedbackElement = document.getElementById("feedback");
+            
+            if (!currentQuestion || !currentQuestion.answer) {
+                feedbackElement.textContent = "Error: No question loaded. Try again.";
+                return;
+            }
+
+            let correctAnswer = currentQuestion.answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                feedbackElement.textContent = "Correct!";
+                score++;
+            } else {
+                feedbackElement.textContent = `Wrong! The correct answer was ${currentQuestion.answer}.`;
+            }
+            
+            document.getElementById("score").textContent = score;
+            document.getElementById("next-btn").style.display = "inline-block";
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
