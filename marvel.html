@@ -1,136 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Villain Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #00b4d8; /* Updated background color */
-            color: #03045e; /* Updated text color */
-            padding: 20px;
-        }
-        .quiz-container {
-            max-width: 600px;
-            margin: auto;
-            background: #1d1d1d; /* Dark background for contrast */
-            padding: 20px;
-            border-radius: 10px;
-            color: #f8f9fa;
-        }
-        .question {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        input {
-            padding: 10px;
-            width: 80%;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            background: #0066b2; /* Marvel blue */
-            color: white;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        button:hover {
-            background: #004494;
-        }
-        iframe {
-            display: none; /* Hide the video but keep audio playing */
-        }
-    </style>
+<style>
+
+body  {background-color:#495057;}
+h1    {color:#d00000; font-size: 32px;text-align: center;}
+h2    {color:#48cae4; font-size: 32px;text-align: center;}
+h3    {color:#dee2e6; font-size: 40px;text-align: center;}
+p1    {color:#ced4da;font-size: 25px}
+p2    {color:#adb5bd;font-size: 20px}
+
+</style>
+
 </head>
 <body>
-    <h1>Marvel Villain Quiz</h1>
-    <div class="quiz-container">
-        <p class="question" id="question">Loading question...</p>
-        <input type="text" id="answer" placeholder="Type your answer here">
-        <button onclick="checkAnswer()">Submit</button>
-        <p id="feedback"></p>
-        <button id="next-btn" onclick="loadQuestion()" style="display: none;">Next Question</button>
-        <p>Score: <span id="score">0</span></p>
-    </div>
+  
+  <h1>MARVEL</h1> <h3>VS</h3> <h2>DC</h2>
+  
+  <p1>IRON MAN(MARVEL):</p1>
+  
+  <p2>Iron Man A.K.A. Anthony Edward "Tony" Stark was a billionare inventor and CEO of Stark Industries.He was one of the founding members of the Avengers,a superhero team to defend the world from intergalactic threats, with Captain America,Hawkeye,Black Widow,Thor and Hulk.He was self described as a BILLIONARE,GENIUS,PLAYBOY PHILLANTROPHIST.With his great wealth and exceptional technical knowledge, Stark was one of the world's most powerful men following the deaths of his parents and enjoyed the playboy lifestyle for many years until he was kidnapped by the Ten Rings in Afghanistan, while demonstrating a fleet of Jericho missiles. With his life on the line, Stark created an armored suit which he used to escape his captors. Upon returning home, he utilized several more armors to use against terrorists, as well as Obadiah Stane who turned against Stark. Following his fight against Stane, Stark publicly revealed himself as Iron Man.</p2>
+  <br>
+  
+  <p1>BATMAN(DC):</p1>
+  
+  <p2>Batman is a crimefighter operating in Gotham City, he serves as its protector, using the symbol of a bat to strike fear into the hearts of criminals. Unlike other superheroes, Batman is often depicted to lack any "superpowers", instead using lifelong training and equipment to fight crime. His secret identity is Bruce Wayne, a rich playboy and philanthropist who swore to fight crime after witnessing his parents' brutal murder. He has served as a member of various teams, including the Justice League, the Justice Society of America, and the Outsiders. Batman is also the founder and leader of various teams, including the Bat-Family, Batmen of All Nations and Batman Incorporated. He also goes by numerous nicknames, including "The Dark Knight", "the Caped Crusader", "World's Greatest Detective" and the "Defender of Gotham".</p2>
+  <br>
+  
+  <p1>QUICKSILVER(MARVEL):</p1>
+  
+  <p2>Pietro Maximoff was a native of Sokovia who grew up with his fraternal twin sister, Wanda. Having lost their parents to a bombing caused by the United States Air Force using Stark Industries weapons, the Maximoffs formed a hatred for the United States and Tony Stark. While protesting against the constant war and strife in Sokovia, the twins joined Baron Strucker's HYDRA cell and became volunteers for human experiments. Upon being exposed to the Mind Stone within the Scepter, he gained the ability to move at superhuman speeds and was dubbed Quicksilver.Following the Avengers' attack on the HYDRA Research Base, the twins joined Ultron to continue their quest for revenge on Stark over his weapons killing their family, but eventually switched sides and helped the Avengers when they discovered Ultron's true intentions. Pietro then joined the Avengers and fought in the Battle of Sokovia but sacrificed his own life to protect Hawkeye and Costel, much to his sister's grief. Pietro's sacrifice was not in vain, as the Avengers destroyed Ultron and stopped him from enacting his cataclysmic extinction-level plan.
 
-    <!-- YouTube Background Music -->
-    <iframe id="yt-audio" width="560" height="315"
-        src="https://www.youtube.com/embed/-BCvS6Q7O4E?autoplay=1&loop=1&playlist=-BCvS6Q7O4E&mute=0"
-        frameborder="0" allow="autoplay"></iframe>
+</p2>
+<br>
 
-    <script>
-        const questions = [
-            { type: "villain", question: "Which Marvel villain seeks to wipe out half of the universe?", answer: "Thanos" },
-            { type: "hero", question: "Who is the main enemy of Spider-Man, often seen as a green menace?", answer: "Green Goblin" },
-            { type: "intention", question: "What is Magneto's goal in fighting against humanity?", answer: "Mutant supremacy" },
-            { type: "villain", question: "Which villain is known for ruling the Dark Dimension?", answer: "Dormammu" },
-            { type: "hero", question: "Who is the archenemy of Black Panther?", answer: "Killmonger" },
-            { type: "intention", question: "What is Loki's ultimate goal when attacking Earth in The Avengers?", answer: "To rule Earth" },
-            { type: "villain", question: "Which villain is an artificial intelligence bent on human extinction?", answer: "Ultron" },
-            { type: "hero", question: "Who is the nemesis of Captain America, known for his red skull?", answer: "Red Skull" },
-            { type: "villain", question: "Who is the primary enemy of the X-Men with time-travel abilities?", answer: "Apocalypse" },
-            { type: "intention", question: "What is Doctor Doom's main goal?", answer: "World domination" },
-            { type: "villain", question: "Which villain is a symbiote and often fights Spider-Man?", answer: "Venom" },
-            { type: "hero", question: "Who is the primary enemy of the Fantastic Four?", answer: "Doctor Doom" },
-            { type: "villain", question: "Who is the ruler of the Dark Elves in Thor: The Dark World?", answer: "Malekith" },
-            { type: "intention", question: "What was Ego the Living Planet's plan?", answer: "To expand himself across the universe" },
-            { type: "villain", question: "Who is a powerful cosmic entity and devourer of planets?", answer: "Galactus" },
-            { type: "hero", question: "Who is the main villain that fights Ant-Man in the first movie?", answer: "Yellowjacket" },
-            { type: "villain", question: "Which villain was created from an experiment with gamma radiation?", answer: "The Abomination" },
-            { type: "intention", question: "What was Hela's goal in Thor: Ragnarok?", answer: "To conquer Asgard" }
-        ];
+<p1>FLASH(DC):</p1>
 
-        while (questions.length < 70) {
-            questions.push(questions[Math.floor(Math.random() * questions.length)]);
-        }
+<p2>Barry Allen is the second speedster to be called the Flash. Using his superspeed powers, he taps into the Speed Force and becomes a costumed crime-fighter. He is also a founding member of the Justice League.
+</p2>
 
-        let currentQuestion = null;
-        let score = 0;
+<br>
 
-        function getRandomQuestion() {
-            return questions[Math.floor(Math.random() * questions.length)];
-        }
+<p1>DR. STRANGE(MARVEL):</p1>
 
-        function loadQuestion() {
-            document.getElementById("next-btn").style.display = "none";
-            document.getElementById("feedback").textContent = "";
-            document.getElementById("answer").value = "";
+<p2>Doctor Stephen Vincent Strange, M.D., Ph.D. is a Master of the Mystic Arts. Originally a brilliant but arrogant neurosurgeon, Strange got into a car accident which resulted in his hands becoming crippled. Once Western medicine failed him, Strange embarked on a journey to Kamar-Taj, where he was trained by the Ancient One in the ways of magic and the Multiverse. Although he focused on healing his hands, Strange was drawn into a conflict with Kaecilius and the Zealots, who were working for Dormammu and had sought to merge Earth with the Dark Dimension. Following the demise of the Ancient One and the defeat of Kaecilius, Strange then became the new protector of the Sanctum Sanctorum, seeking to defend the Earth from other inter-dimensional threats.</p2>
 
-            currentQuestion = getRandomQuestion();
-            if (currentQuestion) {
-                document.getElementById("question").textContent = currentQuestion.question;
-            }
-        }
+<br>
 
-        function checkAnswer() {
-            let userAnswer = document.getElementById("answer").value.trim().toLowerCase();
-            let feedbackElement = document.getElementById("feedback");
-            
-            if (!currentQuestion || !currentQuestion.answer) {
-                feedbackElement.textContent = "Error: No question loaded. Try again.";
-                return;
-            }
+<p1>DR. FATE(DC):</p1>
 
-            let correctAnswer = currentQuestion.answer.toLowerCase();
+<p2>Dr. Kent Nelson is Doctor Fate, a powerful sorcerer and agent for the Lords of Order who fights evil alongside his wife Inza. His amulet, cloak and helmet are creations of the ancient Nabu who acts as his mentor and spiritual guide. He is a founding member of the Justice Society of America.</p2>
 
-            if (userAnswer === correctAnswer) {
-                feedbackElement.textContent = "Correct!";
-                score++;
-            } else {
-                feedbackElement.textContent = `Wrong! The correct answer was ${currentQuestion.answer}.`;
-            }
-            
-            document.getElementById("score").textContent = score;
-            document.getElementById("next-btn").style.display = "inline-block";
-        }
+<br>
 
-        window.onload = loadQuestion;
-    </script>
-</body>
-</html>
+<p1>WINTER SOLDIER(MARVEL):</p1>
+
+<p2>James Buchanan "Bucky" Barnes is a World War II veteran, former officer of the 107th Infantry Regiment and the best friend of Steve Rogers since childhood. Barnes had enlisted into the Army following the attack on Pearl Harbor and was assigned to the 107th in 1943. His unit was captured by HYDRA, where Barnes was injected with the Super Soldier Serum by Arnim Zola. Barnes was rescued by Rogers, who had become Captain America. Barnes and Rogers then formed the Howling Commandos to battle Red Skull's forces. However, during the attempt to finally capture Zola in the Austrian Alps, Barnes was caught up in the ambush and plummeted hundreds of feet. As no body was recovered, Barnes was presumed deceased and honored as a hero who died in service to his country.</p2>
+
+<br>
+
+<p1>DEADSHOT(DC):</p1>
+
+<p2>Floyd Lawton, also known as Deadshot, is the "man who never missed" - an assassin with an almost superhuman marksmanship skill. His villainous activities against Batman quickly landed him a spot on the Suicide Squad, where he soon became one of its most effective and notorious members.</p2>
+
+
+  
+  
+  
