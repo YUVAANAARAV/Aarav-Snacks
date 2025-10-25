@@ -6,22 +6,24 @@
     <title>Explore Aarav's World</title>
     <style>
         :root {
-            --bg-color: #fafafa;
-            --text-color: #333;
-            --accent-color: #2196f3;
-            --hover-color: #1976d2;
+            --bg-color: #f0f8ff;
+            --text-color: #2c3e50;
+            --accent-color: #00bcd4;
+            --hover-color: #3498db;
             --card-bg: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow: rgba(52, 152, 219, 0.1);
+            --category-title: #e91e63;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: #121212;
-                --text-color: #e0e0e0;
-                --accent-color: #64ffda;
-                --hover-color: #00b4a2;
-                --card-bg: #1e1e1e;
-                --shadow: rgba(255, 255, 255, 0.05);
+                --bg-color: #0a1929;
+                --text-color: #ecf0f1;
+                --accent-color: #00fff5;
+                --hover-color: #00e5ff;
+                --card-bg: #1a2634;
+                --shadow: rgba(0, 229, 255, 0.1);
+                --category-title: #ff4081;
             }
         }
 
@@ -57,28 +59,39 @@
             font-size: 1.2rem;
             color: var(--accent-color);
             margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .nav-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
             padding: 1rem;
         }
 
         .nav-category {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px var(--shadow);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-category:hover {
+            transform: translateY(-2px);
         }
 
         .category-title {
-            color: var(--accent-color);
+            color: var(--category-title);
             font-size: 1.3rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent-color);
+            border-bottom: 2px solid var(--category-title);
+            letter-spacing: 0.05em;
         }
 
         .nav-links {
@@ -90,17 +103,21 @@
         .nav-link {
             color: var(--text-color);
             text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
         }
 
         .nav-link:hover {
             background: var(--accent-color);
             color: var(--bg-color);
             transform: translateX(5px);
+            border-color: var(--hover-color);
+            box-shadow: 0 2px 8px var(--shadow);
         }
 
         .nav-link::before {
