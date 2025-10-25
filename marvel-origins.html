@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Characters Origin Stories</title>
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --text-color: #f1f1f1;
+            --accent-color: #e94560;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        :root[data-theme="light"] {
+            --primary-color: #ffffff;
+            --text-color: #333333;
+            --accent-color: #e94560;
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        [data-theme="light"] #theme-toggle {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: var(--primary-color);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .characters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .character-section {
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .character-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        footer a:hover {
+            transform: translateY(-3px);
+            background: var(--accent-color);
+        }
+
+        .character-content {
+            flex: 1;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        audio {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .character-section {
+                flex-direction: column;
+            }
+
+            .character-img {
+                width: 100%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Replace the src attribute with your legally obtained Avengers theme song audio file -->
+    <audio autoplay loop>
+        <source src="your-avengers-theme.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="theme-toggle">🌓 Toggle Theme</button>
+
+    <header>
+        <h1>Marvel Characters: Origin Stories</h1>
+        <p>Discover the beginnings of Earth's mightiest heroes</p>
+    </header>
+
+    <main class="characters-container">
+        <div class="character-section">
+            <img src="IM1.png" alt="Iron Man" class="character-img">
+            <div class="character-content">
+                <h2>Iron Man (Tony Stark)</h2>
+                <p>Tony Stark, a genius billionaire, was captured by terrorists while demonstrating weapons in Afghanistan. Forced to build weapons for them, he instead created an armored suit to escape. This experience changed him forever, leading him to become the heroic Iron Man, using his technology to protect the world.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="SM1.png" alt="Spider-Man" class="character-img">
+            <div class="character-content">
+                <h2>Spider-Man (Peter Parker)</h2>
+                <p>Peter Parker was bitten by a radioactive spider during a science exhibition. After his Uncle Ben's death and remembering his words "With great power comes great responsibility," Peter chose to use his newfound spider-like abilities to protect New York City as Spider-Man.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/5/18/HD-wallpaper-thor-minimal.jpg" alt="Thor" class="character-img">
+            <div class="character-content">
+                <h2>Thor</h2>
+                <p>Thor, the proud prince of Asgard, was cast out by his father Odin due to his arrogance. Stripped of his powers and hammer Mjolnir, he was sent to Earth to learn humility. Through his experiences with humans, he became worthy of his power and emerged as one of Earth's mightiest defenders.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="BW1.jpg" alt="Black Widow" class="character-img">
+            <div class="character-content">
+                <h2>Black Widow (Natasha Romanoff)</h2>
+                <p>Trained from childhood in the Red Room, Natasha Romanoff became the deadly Black Widow. After years as a Russian operative, she was recruited by S.H.I.E.L.D., choosing to use her exceptional skills for good and eventually becoming a core member of the Avengers.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/826/16/HD-wallpaper-captain-america-minimalist-design.jpg" alt="Captain America" class="character-img">
+            <div class="character-content">
+                <h2>Captain America (Steve Rogers)</h2>
+                <p>Steve Rogers, a scrawny but determined young man, volunteered for Project Rebirth during WWII. The super-soldier serum transformed him into Captain America. After being frozen for decades, he awakened in modern times to lead the Avengers.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://wallpapers.com/images/hd/black-panther-jbdcx28k5hhigujj.jpg" alt="Black Panther" class="character-img">
+            <div class="character-content">
+                <h2>Black Panther (T'Challa)</h2>
+                <p>T'Challa, prince of the technologically advanced nation of Wakanda, assumed the mantle of Black Panther after his father's death. Enhanced by the heart-shaped herb and protected by his vibranium suit, he serves as both king and protector of his people.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://wallpapers.com/images/hd/doctor-strange-minimalist-side-profile-87skoivzsg08sm25.jpg" alt="Doctor Strange" class="character-img">
+            <div class="character-content">
+                <h2>Doctor Strange</h2>
+                <p>Dr. Stephen Strange was a brilliant but arrogant neurosurgeon until a car accident damaged his hands. Seeking healing, he discovered the mystic arts under the Ancient One's guidance, eventually becoming Earth's Sorcerer Supreme.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/617/587/HD-wallpaper-hulk-anime-black-body-incridblehulk-iphone-powerful-smash.jpg" alt="Hulk" class="character-img">
+            <div class="character-content">
+                <h2>Hulk (Bruce Banner)</h2>
+                <p>Dr. Bruce Banner was exposed to gamma radiation during an experimental bomb test. This accident transformed him into the Hulk, a green-skinned powerhouse whose strength increases with his anger. Banner has since learned to balance his two sides.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/608/683/HD-wallpaper-captain-marvel-adilxvr-america-logo-simple-superhero-team-xvrist.jpg" alt="Captain Marvel" class="character-img">
+            <div class="character-content">
+                <h2>Captain Marvel (Carol Danvers)</h2>
+                <p>Air Force pilot Carol Danvers gained extraordinary powers when a Kree device exploded, infusing her with alien energy. After serving with the Kree military, she returned to Earth, becoming one of the universe's most powerful heroes.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/598/673/HD-wallpaper-wanda-vision-minimal-logo-wanda-vision-scarlet-witch-vision-tv-shows-logo-dark-black-deviantart.jpg" alt="Scarlet Witch" class="character-img">
+            <div class="character-content">
+                <h2>Scarlet Witch (Wanda Maximoff)</h2>
+                <p>Wanda Maximoff, along with her twin brother Pietro, volunteered for HYDRA experiments that awakened her latent magical abilities. Initially an adversary, she joined the Avengers, becoming one of their most powerful members with her reality-altering powers.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://i.guim.co.uk/img/static/sys-images/Arts/Arts_/Pictures/2015/5/28/1432829010115/Tom-Hiddleston-as-Loki-008.jpg?width=700&quality=85&auto=format&fit=max&s=ab16d40ee2ea52ba3f7a19501c76b417" alt="Loki" class="character-img">
+            <div class="character-content">
+                <h2>Loki</h2>
+                <p>Adopted son of Odin and brother to Thor, Loki discovered his true heritage as a Frost Giant, leading to a complex journey from villain to anti-hero. His mastery of illusion and manipulation, combined with his complicated relationship with his family, makes him one of Marvel's most intriguing characters.</p>
+            </div>
+        </div>
+
+        <div class="character-section">
+            <img src="https://w0.peakpx.com/wallpaper/273/818/HD-wallpaper-dancing-groot-black-black-and-white-thumbnail.jpg" alt="Groot" class="character-img">
+            <div class="character-content">
+                <h2>Groot</h2>
+                <p>A tree-like being from Planet X, Groot is a member of the Guardians of the Galaxy. Despite only being able to say "I am Groot," he possesses tremendous strength and the ability to regenerate. His childlike innocence and sacrifice for his friends have made him a beloved character in the Marvel universe.</p>
+            </div>
+        </div>
+        
+        </div>
+    </main>
+
+    <footer style="text-align: center; margin-top: 4rem; padding: 2rem; border-top: 2px solid var(--accent-color);">
+        <h2 style="color: var(--accent-color);">Explore My Other Websites</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1000px; margin: 2rem auto;">
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/index.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">My First Website</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/Poke.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Pokeverse Chronicles</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/pokemon.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Pokemon Game</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/photo.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Photos</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Space 1</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space2.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Space 2</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space3.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Space 3</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/marvel.html" target="_blank" style="color: var(--text-color); text-decoration: none; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; transition: transform 0.3s ease;">Marvel</a>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        root.setAttribute('data-theme', savedTheme);
+        updateToggleButton();
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleButton();
+        });
+
+        function updateToggleButton() {
+            const currentTheme = root.getAttribute('data-theme');
+            themeToggle.innerHTML = currentTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+        }
+    </script>
+</body>
+</html>
