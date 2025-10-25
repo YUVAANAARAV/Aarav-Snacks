@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Explorer</title>
+    <style>
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-secondary: #141e33;
+            --text-primary: #e0e7ff;
+            --text-secondary: #8b9dc3;
+            --accent: #64ffda;
+            --accent-dark: #00b4a2;
+            --grid-gap: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin: 3rem 0 2rem;
+            text-align: center;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 1rem auto;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .fact-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .planet-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        a:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .fact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SPACE</h1>
+        <p>Explore the mysteries of the cosmos</p>
+    </header>
+
+    <div class="container">
+        <section class="planet-section">
+            <h2>How Planets Got Their Names</h2>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <h3>Mercury</h3>
+                    <p>Named after the Roman messenger god, Mercury, known for his speed. This is fitting because Mercury is the fastest planet in its orbit around the Sun.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Venus</h3>
+                    <p>Venus is named after the Roman goddess of love and beauty. Its bright appearance in the sky made it associated with this goddess.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Earth</h3>
+                    <p>The name "Earth" comes from Old English and Germanic words meaning "ground" or "soil." It is unique among planets because its name does not derive from mythology.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Mars</h3>
+                    <p>Mars is named after the Roman god of war, likely due to its reddish color resembling blood. In various cultures, this planet has often been associated with conflict.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Jupiter</h3>
+                    <p>Named after the king of the Roman gods, Jupiter, this planet is the largest in the solar system, fitting for a god associated with power and authority.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Saturn</h3>
+                    <p>Saturn is named after the Roman god of agriculture and time, who was also the father of Jupiter. Its name reflects its status as a prominent planet in the sky.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Uranus</h3>
+                    <p>Uranus is named after the Greek god of the sky, Ouranos. It was the first planet discovered with a telescope, and its name reflects its mythological roots.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Neptune</h3>
+                    <p>Named after the Roman god of the sea, Neptune, this planet is associated with deep blue colors, reminiscent of the ocean.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Pluto (Formerly a Planet)</h3>
+                    <p>Named after the Roman god of the underworld, Pluto's name was chosen in part due to its distant and cold nature. It was discovered in 1930.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Extrasolar Planets</h3>
+                    <p>While not part of our solar system, it's interesting to note that planets outside our solar system (exoplanets) are often named based on the star they orbit, combined with a letter designation (e.g., HD 209458 b).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="planet-section">
+            <h2>Cosmic Mysteries</h2>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <h3>Vastness of Space</h3>
+                    <p>The observable universe is about 93 billion light-years in diameter, filled with billions of galaxies, each containing millions or billions of stars.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Black Holes</h3>
+                    <p>Once a star collapses into a black hole, its gravitational pull is so strong that not even light can escape, making them invisible to traditional telescopes.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>The Silent Void</h3>
+                    <p>In the vacuum of space, there's no medium (like air) for sound to travel through, so space is completely silent.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Day Length Variation</h3>
+                    <p>A day on Venus (243 Earth days) is longer than a year on Venus (225 Earth days) due to its slow rotation on its axis.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Rogue Planets</h3>
+                    <p>There are planets that do not orbit any star, known as rogue planets. They drift through space, unbound to any solar system.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Water in Space</h3>
+                    <p>Water has been found on the Moon, Mars, and even in the atmospheres of some exoplanets, suggesting that it might be more common in the universe than previously thought.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Cosmic Background Radiation</h3>
+                    <p>The afterglow of the Big Bang can still be detected as cosmic microwave background radiation, which fills the universe and provides evidence of its origins.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Neutron Stars</h3>
+                    <p>These incredibly dense remnants of supernova explosions can have a mass greater than that of the Sun, but be only about 20 kilometers in diameter!</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Time Dilation</h3>
+                    <p>According to Einstein's theory of relativity, time moves slower in stronger gravitational fields. This means that time passes slightly faster for astronauts in space compared to people on Earth.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>The Great Attractor</h3>
+                    <p>A massive gravitational force pulling galaxies, including the Milky Way, at 600 km/s, located 150-250 million light-years away. Its nature is still a mystery.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="planet-section">
+            <h2>Amazing Space Facts</h2>
+            <div class="fact-grid">
+                <div class="fact-card">
+                    <h3>Infinite Stars</h3>
+                    <p>There are more stars in the universe than grains of sand on all the Earth's beaches combined!</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Jupiter's Great Red Spot</h3>
+                    <p>This massive storm on Jupiter is so big that three Earths could fit inside it.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Venus' Day</h3>
+                    <p>A day on Venus (one full rotation) is longer than a year on Venus (one complete orbit around the Sun).</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Moonquakes</h3>
+                    <p>The Moon experiences quakes too! They are called moonquakes and can last up to an hour.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Floating Astronauts</h3>
+                    <p>Astronauts on the International Space Station float because they are in a constant state of free fall around Earth.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Comet Tails</h3>
+                    <p>Comets have two tails: one made of gas and the other of dust, which always point away from the Sun due to solar wind.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Mars' Olympus Mons</h3>
+                    <p>Olympus Mons is nearly three times the height of Mount Everest, making it the tallest volcano in the solar system.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Earth's Speed</h3>
+                    <p>Earth travels through space at about 67,000 miles per hour (107,000 kilometers per hour) as it orbits the Sun.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Rings of Saturn</h3>
+                    <p>Saturn's rings are made mostly of ice particles, with some rocky debris, and are incredibly thin—only about 30 feet (10 meters) thick.</p>
+                </div>
+                <div class="fact-card">
+                    <h3>Age of Light</h3>
+                    <p>Light from the Sun takes about 8 minutes to reach Earth, meaning we see the Sun as it was 8 minutes ago!</p>
+                </div>
+                <div class="fact-card">
+                    <h3>The Sun's Mass</h3>
+                    <p>The Sun is so massive that it contains 99.86% of all the mass in our Solar System. The rest is mostly in the planets.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="nav-links">
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space3.html" target="_blank">Visit Space 3</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space2.html" target="_blank">Explore Space 2</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/space.html" target="_blank">Visit Space 1</a>
+            <a href="https://yuvaanaarav.github.io/Aarav-Snacks/index.html" target="_blank">Home</a>
+        </div>
+    </div>
+</body>
+</html>
