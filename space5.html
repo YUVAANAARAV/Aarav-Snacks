@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey Through Time: Space Exploration</title>
+    <style>
+        :root {
+            --bg-color: #0a1929;
+            --text-color: #ecf0f1;
+            --accent-color: #00fff5;
+            --heading-color: #ff6b6b;
+            --timeline-color: #4a90e2;
+            --card-bg: #1a2634;
+            --nav-hover: #00e5ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #1a2634, var(--bg-color));
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-bar {
+            background: var(--card-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent-color);
+        }
+
+        .nav-link:hover {
+            background: var(--nav-hover);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .event {
+            background: var(--card-bg);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--timeline-color);
+            transition: transform 0.3s ease;
+        }
+
+        .event:hover {
+            transform: translateX(10px);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .quote-container {
+            padding: 4rem 1rem;
+            background: linear-gradient(45deg, rgba(26, 38, 52, 0.8), rgba(10, 25, 41, 0.8));
+            margin: 3rem 0;
+        }
+
+        .quote {
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            margin: 0 auto;
+            max-width: 700px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 255, 245, 0.1);
+            border: 1px solid rgba(0, 255, 245, 0.1);
+        }
+
+        .quote h2 {
+            color: var(--heading-color);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.2em;
+        }
+
+        .quote h3 {
+            color: var(--text-color);
+            font-size: 1.6rem;
+            margin: 1rem 0;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        .author {
+            color: var(--accent-color);
+            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background: var(--card-bg);
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding: 0 1rem;
+            }
+
+            .event {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="title">Journey Through Time: Space Exploration</h1>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-links">
+            <a href="space.html" class="nav-link">Space Journey 1</a>
+            <a href="space2.html" class="nav-link">Space Journey 2</a>
+            <a href="space3.html" class="nav-link">Space Journey 3</a>
+            <a href="space4.html" class="nav-link">Space Journey 4</a>
+            <a href="halloffame.html" class="nav-link">Hall of Fame</a>
+            <a href="explore.html" class="nav-link">Navigation Hub</a>
+        </div>
+    </nav>
+
+    <div class="timeline">
+        <div class="event">
+            <h2>1957: Sputnik 1</h2>
+            <p>On October 4, 1957, the Soviet Union launched Sputnik 1, the first artificial satellite to orbit the Earth. This historic achievement marked the beginning of the space age and triggered the space race between the United States and the Soviet Union. Sputnik 1, a metallic sphere equipped with radio transmitters, orbited the Earth every 96 minutes, sending beeping signals back to Earth that could be picked up by radio operators worldwide.</p>
+        </div>
+        
+        <div class="event">
+            <h2>1961: Yuri Gagarin</h2>
+            <p>On April 12, 1961, Yuri Gagarin became the first human to journey into outer space. Aboard the Soviet spacecraft Vostok 1, Gagarin completed one orbit around Earth in a flight lasting 108 minutes. His courageous mission inspired generations and solidified the Soviet Union's early dominance in space exploration.</p>
+        </div>
+
+        <div class="quote-container">
+            <div class="quote">
+                <h2>SPACE</h2>
+                <h3>NEITHER YOU, NOR ME</h3>
+                <h3>NONE KNOWS WHAT'S OUT THERE</h3>
+                <h3>BUT</h3>
+                <h3>WE KNOW SOMETHING:</h3>
+                <h3>IT'S INFINITE</h3>
+                <p class="author">BY AARAV</p>
+            </div>
+        </div>
+
+        <div class="event">
+            <h2>1969: Apollo 11</h2>
+            <p>On July 20, 1969, Neil Armstrong and Buzz Aldrin made history by becoming the first humans to set foot on the Moon. The Apollo 11 mission, conducted by NASA, was a monumental achievement in human history. Armstrong's iconic words, "That's one small step for man, one giant leap for mankind," symbolize humanity's collective drive for discovery and exploration. The mission also brought back lunar samples, providing invaluable insights into the Moon's composition.</p>
+        </div>
+
+        <div class="event">
+            <h2>1990: Hubble Space Telescope</h2>
+            <p>In 1990, the Hubble Space Telescope was launched into orbit, revolutionizing our understanding of the universe. Positioned beyond Earth's atmosphere, Hubble has captured breathtaking images of distant galaxies, nebulae, and other celestial phenomena. Its observations have expanded our knowledge of the cosmos, contributing to significant discoveries such as the accelerated expansion of the universe and the presence of exoplanets.</p>
+        </div>
+
+        <div class="event">
+            <h2>2021: Perseverance Rover</h2>
+            <p>On February 18, 2021, NASA's Perseverance rover successfully landed on Mars. Designed to search for signs of ancient life and collect samples for future return to Earth, Perseverance is exploring the Jezero Crater, a region believed to have once hosted a lake. Equipped with advanced scientific instruments, the rover is also paving the way for future human missions to the Red Planet.</p>
+        </div>
+
+        <div class="event">
+            <h2>2025: ISRO's Gaganyaan Mission</h2>
+            <p>The Indian Space Research Organisation (ISRO) is working on Gaganyaan, India's first human spaceflight mission. Set to launch in 2025, the mission will send Indian astronauts into a low Earth orbit. This ambitious project demonstrates ISRO's growing expertise in human space exploration and aims to pave the way for further advancements in space technology.</p>
+        </div>
+
+        <div class="event">
+            <h2>2024: NASA's Artemis Mission</h2>
+            <p>NASA's Artemis program aims to return humans to the Moon by 2024. This ambitious mission will send astronauts, including the first woman and the next man, to the lunar surface. Artemis will lay the groundwork for sustainable exploration, with the goal of reaching Mars by the 2030s. The program will also include building a lunar Gateway to assist in space travel and exploration.</p>
+        </div>
+
+        <div class="event">
+            <h2>2025: SpaceX's Starship Lunar Landing</h2>
+            <p>SpaceX's Starship, a fully reusable spacecraft currently under development, is expected to play a key role in humanity's return to the Moon. Starship will be used in NASA's Artemis program for landing astronauts on the lunar surface by 2025. Starship is also planned to be the spacecraft for future crewed missions to Mars and beyond, aiming to make space travel more affordable and efficient.</p>
+        </div>
+
+        <div class="event">
+            <h2>2030s: Human Mission to Mars</h2>
+            <p>By the 2030s, NASA and private companies like SpaceX are planning human missions to Mars. These ambitious missions aim to establish the first human colonies on the Red Planet, paving the way for sustainable exploration beyond Earth.</p>
+        </div>
+
+    </div>
+
+    
+
+</body>
+</html>
