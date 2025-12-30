@@ -1,0 +1,464 @@
+<!--
+  video.html
+  Static, minimal pastel-on-dark gallery that references files in a local 'videos/' folder.
+  ASSUMPTIONS:
+  - You will place your video files in a folder named 'videos' at the repo root: c:/.../Aarav-Snacks/videos/
+  - The filenames you provided do not include extensions; this page assumes .mp4 for each file.
+    If your files use other extensions (.mov, .webm), rename the source lines below or tell me and I will update.
+  - Order (per your list) is preserved.
+
+  To use:
+  1. Create a folder `videos/` in the repo root.
+  2. Copy your video files from File Explorer into that folder and name them exactly (e.g. LT1.mp4).
+  3. Open this `video.html` in a browser (double-click) to view the gallery.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Videography — Gallery</title>
+  <style>
+    :root{
+      /* improved pastel-on-dark palette */
+      --bg:#071018;
+      --muted:#D9EEF9; /* softer off-white */
+      --pink:#FFC9E3; /* peachy-pink */
+      --blue:#BEE9FF; /* airy blue */
+      --green:#CFF5D9; /* mint */
+      --lav:#D6C8FF; /* lavender accent */
+      --accent1:var(--lav);
+      --accent2:var(--pink);
+      --card: rgba(255,255,255,0.02);
+      --glass: rgba(255,255,255,0.04);
+      --shadow: rgba(2,6,23,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;
+      background:linear-gradient(180deg,var(--bg),#051018);color:var(--muted);padding:36px;-webkit-font-smoothing:antialiased;
+    }
+    header{text-align:center;margin-bottom:18px}
+  h1{margin:0;font-size:28px;font-weight:700;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:0.12em}
+    p.lead{margin-top:8px;color:rgba(203,221,234,0.9)}
+
+  /* single-column layout for clarity: one video per line */
+  .video-grid{display:grid;grid-template-columns:1fr;gap:22px;max-width:920px;margin:18px auto}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid var(--glass);transition:transform .22s,box-shadow .22s;display:flex;flex-direction:column;gap:10px}
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(2,6,23,0.75)}
+
+  .video-wrap{position:relative;width:100%;padding-top:56.25%;overflow:hidden;border-radius:10px;background:#031018;border:1px solid rgba(255,255,255,0.02)}
+  .video-wrap video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;background:#000}
+
+  .meta{padding:10px 6px;text-align:center}
+  .title{font-weight:800;color:var(--green);margin-bottom:6px;font-size:1.05rem}
+    .subtitle{font-size:0.9rem;color:rgba(203,221,234,0.9)}
+    .collection{font-size:1.02rem;color:var(--lav);margin:6px 0 8px;text-align:left;max-width:1200px;margin-left:auto;margin-right:auto;padding-left:6px}
+
+  .controls{display:flex;gap:10px;justify-content:center;margin-top:8px}
+  .btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071018;border:none;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+  .site-links{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .site-links a{color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;font-weight:600}
+  .site-links a:hover{background:rgba(255,255,255,0.02)}
+    .audio-only{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px;border-radius:8px}
+
+    footer{max-width:1200px;margin:28px auto 6px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.04);text-align:center;color:rgba(203,221,234,0.8)}
+  .banner{max-width:920px;margin:8px auto;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg, rgba(214,200,255,0.06), rgba(255,201,227,0.03));border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600}
+  .missing{opacity:0.9}
+
+    @media (max-width:720px){body{padding:18px}h1{font-size:20px;letter-spacing:0.09em} .video-grid{padding:0 6px}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Videography</h1>
+    <nav class="site-links" aria-label="site navigation">
+      <a href="index.html">Home</a>
+      <a href="photo.html">Photos</a>
+      <a href="photos.html">All Photos</a>
+      <a href="Poke.html">Poke</a>
+      <a href="pokemon.html">Pokemon</a>
+      <a href="pokemon!.html">Pokemon!</a>
+      <a href="space.html">Space</a>
+      <a href="space2.html">Space2</a>
+      <a href="space3.html">Space3</a>
+      <a href="marvel.html">Marvel</a>
+      <a href="halloffame.html">Hall of Fame</a>
+    </nav>
+  </header>
+
+  <main class="video-grid">
+    <div id="page-banner" class="banner" style="display:none"></div>
+    <!-- THE LAST TRICK COLLECTION -->
+    <div class="collection">THE LAST TRICK COLLECTION</div>
+    <!-- LT1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LT1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">THE LAST TRICK #1</div>
+        <div class="subtitle">LT1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LT1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LT2T -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LT2T.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">THE LAST TRICK #2 TRAILER</div>
+        <div class="subtitle">LT2T.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LT2T.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LT2 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LT2.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">THE LAST TRICK #2</div>
+        <div class="subtitle">LT2.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LT2.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LEGO SPACE ODYSSEY COLLECTION -->
+    <div class="collection">LEGO SPACE ODYSSEY COLLECTION</div>
+    <!-- LSO1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 1</div>
+        <div class="subtitle">LSO1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO2 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO2.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 2</div>
+        <div class="subtitle">LSO2.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO2.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO3 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO3.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 3</div>
+        <div class="subtitle">LSO3.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO3.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO4.1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO4.1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 4 (#1)</div>
+        <div class="subtitle">LSO4.1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO4.1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO4.2 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO4.2.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 4 (#2)</div>
+        <div class="subtitle">LSO4.2.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO4.2.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO4.3 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO4.3.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 4 (#3)</div>
+        <div class="subtitle">LSO4.3.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO4.3.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- LSO5 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/LSO5.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">LEGO SPACE ODYSSEY 5</div>
+        <div class="subtitle">LSO5.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/LSO5.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- GUN COLLECTION -->
+    <div class="collection">GUN COLLECTION</div>
+    <!-- G1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/G1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">GUN #1</div>
+        <div class="subtitle">G1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/G1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- G2 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/G2.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">GUN #2</div>
+        <div class="subtitle">G2.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/G2.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- G3 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/G3.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">GUN #3</div>
+        <div class="subtitle">G3.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/G3.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- MOON COLLECTION -->
+    <div class="collection">MOON COLLECTION</div>
+    <!-- M1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/M1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">MOON #1</div>
+        <div class="subtitle">M1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/M1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- M2 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/M2.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">MOON #2</div>
+        <div class="subtitle">M2.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/M2.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARS -->
+    <div class="collection">CARS</div>
+    <!-- C1 -->
+    <article class="card">
+      <div class="video-wrap">
+        <video controls preload="metadata" src="videos/C1.mp4"></video>
+      </div>
+      <div class="meta">
+        <div class="title">CAR</div>
+        <div class="subtitle">C1.mp4</div>
+        <div class="controls">
+          <button class="btn" onclick="this.closest('article').querySelector('video').play()">Play</button>
+          <button class="audio-only" onclick="playAudio('videos/C1.mp4', this)">Audio only</button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <nav class="site-links" aria-label="site navigation bottom">
+      <a href="index.html">Home</a>
+      <a href="photo.html">Photos</a>
+      <a href="photos.html">All Photos</a>
+      <a href="Poke.html">Poke</a>
+      <a href="pokemon.html">Pokemon</a>
+      <a href="pokemon!.html">Pokemon!</a>
+      <a href="space.html">Space</a>
+      <a href="space2.html">Space2</a>
+      <a href="space3.html">Space3</a>
+      <a href="marvel.html">Marvel</a>
+      <a href="halloffame.html">Hall of Fame</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Simple audio-only helper: creates an <audio> element and shows controls.
+    let currentAudio = null;
+    function playAudio(src, btn){
+      // stop any current audio
+      if(currentAudio){ try{ currentAudio.pause(); }catch(e){} }
+      // create and insert an audio element next to the button's card
+      const card = btn.closest('.card');
+      const thumb = card.querySelector('.video-wrap');
+      thumb.innerHTML = '';
+      const audio = document.createElement('audio'); audio.src = src; audio.controls=true; audio.autoplay=true; audio.style.width='100%';
+      thumb.appendChild(audio);
+      currentAudio = audio;
+      const p = audio.play(); if(p && p.catch) p.catch(()=>{});
+    }
+    
+    // Diagnostic loader: tries multiple extensions and reports missing files.
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const extCandidates = ['.mp4','.webm','.ogg'];
+      document.querySelectorAll('article.card').forEach(card=>{
+        const video = card.querySelector('video');
+        if(!video) return;
+        // make videos usable on mobile
+        try{ video.playsInline = true; video.setAttribute('playsinline',''); }catch(e){}
+        const meta = card.querySelector('.meta');
+        const status = document.createElement('div');
+        status.className = 'error-message';
+        status.style.marginTop = '8px';
+        status.style.fontSize = '0.85rem';
+        status.style.color = 'rgba(255,120,120,0.95)';
+        status.textContent = 'Checking file...';
+        meta.appendChild(status);
+
+        // derive base name (strip extension if present)
+        const src = video.getAttribute('src') || '';
+        let base = src.replace(/^videos\//,'').replace(/\.[a-z0-9]+$/i,'');
+
+        // We'll try both videos/<name>.<ext> and <name>.<ext> (repo root) to cover both layouts
+        let idx = 0;
+        const tryNext = ()=>{
+          if(idx >= extCandidates.length){
+            status.textContent = `File not found: ${base} (tried ${extCandidates.join(', ')} in videos/ and repo root) — please place the files into the videos/ folder or serve via HTTP.`;
+            card.classList.add('missing');
+            return;
+          }
+          const tryExt = extCandidates[idx++];
+          const candidates = [`videos/${base}${tryExt}`, `${base}${tryExt}`];
+          let cidx = 0;
+          const tryCandidate = ()=>{
+            if(cidx >= candidates.length){
+              // try next extension
+              setTimeout(tryNext, 40);
+              return;
+            }
+            const trySrc = candidates[cidx++];
+            // update video src and attempt to load metadata
+            video.src = trySrc;
+            video.load();
+            let settled = false;
+            const onLoaded = ()=>{
+              if(settled) return; settled = true;
+              status.style.color = 'var(--green)';
+              status.textContent = `Loaded: ${trySrc}`;
+              cleanup();
+            };
+            const onError = ()=>{
+              if(settled) return;
+              cleanup();
+              // try next candidate for same extension
+              setTimeout(tryCandidate, 40);
+            };
+            const cleanup = ()=>{
+              video.removeEventListener('loadedmetadata', onLoaded);
+              video.removeEventListener('error', onError);
+            };
+            video.addEventListener('loadedmetadata', onLoaded);
+            video.addEventListener('error', onError);
+            // safety timeout
+            setTimeout(()=>{ if(!settled) onError(); }, 2000);
+          };
+          tryCandidate();
+        };
+        tryNext();
+      });
+
+      // show banner if any missing
+      setTimeout(()=>{
+        const missing = document.querySelectorAll('article.card.missing').length;
+        const banner = document.getElementById('page-banner');
+        if(missing>0){
+          banner.style.display = 'block';
+          banner.innerHTML = `<strong>${missing} video(s) not found.</strong> If the videos are stored on your computer, serve this folder via a local HTTP server for reliable playback (recommended). <button id="serve-btn" style="margin-left:12px;padding:6px 10px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071018;cursor:pointer">How to serve</button>`;
+          document.getElementById('serve-btn').addEventListener('click', ()=>{
+            alert('Open a PowerShell in the project folder and run: \n\npython -m http.server 8000\n\nThen open http://localhost:8000/video.html in your browser.');
+          });
+        } else {
+          banner.style.display = 'none';
+        }
+      }, 700);
+    });
+  </script>
+</body>
+</html>
