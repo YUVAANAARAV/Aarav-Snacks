@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAV SNACKS - Fresh & Delicious</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFE8D6 50%, #D4F0E8 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 232, 214, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #D2691E;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 60px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #D2691E;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4F0E8, #E8D5F0);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #D2691E;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #FFE8D6, #D4F0E8, #E8D5F0);
+            border-radius: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-card:nth-child(1) {
+            border-top-color: #FFD6A5;
+        }
+
+        .menu-card:nth-child(2) {
+            border-top-color: #CAFFBF;
+        }
+
+        .menu-card:nth-child(3) {
+            border-top-color: #B9B1FF;
+        }
+
+        .menu-card:nth-child(4) {
+            border-top-color: #FFE8D6;
+        }
+
+        .menu-card:nth-child(5) {
+            border-top-color: #D4F0E8;
+        }
+
+        .menu-card:nth-child(6) {
+            border-top-color: #E8D5F0;
+        }
+
+        .menu-card:nth-child(7) {
+            border-top-color: #FFF9E6;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .item-emoji {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .item-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 20px;
+            min-height: 30px;
+        }
+
+        .item-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #D2691E;
+            background: linear-gradient(135deg, #FFF9E6, #FFE8D6);
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* About Section */
+        .about-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #D4F0E8 0%, #E8D5F0 100%);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .about-highlight {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: bold;
+            color: #D2691E;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 232, 214, 0.95);
+            color: #666;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .item-name {
+                font-size: 18px;
+            }
+
+            .item-emoji {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">🍴</div>
+            <div>
+                <div class="brand-name">AARAV SNACKS</div>
+                <div class="tagline">Fresh • Tasty • Affordable</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to AARAV SNACKS! 👋</h1>
+        <p>Homemade goodness, made with ❤️ for the family</p>
+        <div class="hero-badge">📅 Available During 20-Day Break</div>
+    </div>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍕</span>
+                <div class="item-name">Bread Pizza</div>
+                <div class="item-description">Crispy bread with delicious toppings</div>
+                <div class="item-price">₹22</div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <span class="item-emoji">🧀</span>
+                <div class="item-name">Grilled Cheese Sandwich</div>
+                <div class="item-description">Gooey cheese in toasted bread</div>
+                <div class="item-price">₹15</div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍋</span>
+                <div class="item-name">Lemonade</div>
+                <div class="item-description">Customizable sweetness & flavor</div>
+                <div class="item-price">₹10</div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍦</span>
+                <div class="item-name">Popsicle</div>
+                <div class="item-description">Cool & refreshing treat</div>
+                <div class="item-price">₹10</div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍞</span>
+                <div class="item-name">Bread Butter</div>
+                <div class="item-description">Simple & delicious</div>
+                <div class="item-price">₹5</div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="menu-card">
+                <span class="item-emoji">🌱</span>
+                <div class="item-name">Sprouts</div>
+                <div class="item-description">Healthy & nutritious</div>
+                <div class="item-price">₹20</div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="menu-card">
+                <span class="item-emoji">⭐</span>
+                <div class="item-name">Combo Pack</div>
+                <div class="item-description">3-4 items for best value</div>
+                <div class="item-price">₹30</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h2>About AARAV SNACKS</h2>
+        <p>Hi, I'm Aarav! I love making delicious homemade snacks for my family. During my 20-day break, I want to share my food with everyone at really reasonable prices.</p>
+        <p>Everything I make is fresh and prepared with care. I don't use any store-bought items, and all the snacks are made at home. Great for quick bites and family gatherings!</p>
+        <div class="about-highlight">🍳 Made Fresh by Aarav</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made by Aarav with ❤️ | Available During 20-Day Break</p>
+        <p style="margin-top: 10px; font-size: 12px;">Hit me up if you want a lot of stuff or something special!</p>
+    </footer>
+</body>
+</html>
