@@ -13,19 +13,21 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFE8D6 50%, #D4F0E8 100%);
+            /* warm cream background */
+            background-color: #FFF8E7;
             min-height: 100vh;
-            color: #333;
+            color: #1F2937;
         }
 
         /* Header */
         header {
-            background-color: rgba(255, 232, 214, 0.95);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #FFF8E7;
+            padding: 30px 0 10px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 100;
+            text-align: center;
         }
 
         .header-content {
@@ -38,58 +40,80 @@
             gap: 15px;
         }
 
+        /* logo removed - replaced by styled brand-name */
         .logo {
-            font-size: 48px;
-            line-height: 1;
+            display: none;
         }
 
         .brand-name {
-            font-size: 32px;
-            font-weight: bold;
-            color: #D2691E;
+            font-size: 36px;
+            font-weight: 800;
+            color: #1F2937;
             letter-spacing: 2px;
+            position: relative;
+            padding: 10px 20px;
+        }
+        .brand-name .highlight {
+            color: #FFB703;
+        }
+        .brand-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: #FFB703;
+            border-radius: 2px;
+            margin-top: 4px;
         }
 
         .tagline {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
+            font-size: 16px;
+            color: #1F2937;
+            margin-top: 8px;
             text-align: center;
+            font-weight: 300;
         }
 
         /* Hero Section */
         .hero {
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 60px auto 40px;
             padding: 60px 20px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.7);
+            background: #FFFFFF;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .hero h1 {
             font-size: 48px;
-            color: #D2691E;
+            color: #1F2937;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hero p {
             font-size: 18px;
-            color: #666;
+            color: #1F2937;
             margin-bottom: 20px;
             line-height: 1.6;
         }
 
         .hero-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #D4F0E8, #E8D5F0);
+            background-color: #FFB703;
+            color: #ffffff;
             padding: 10px 20px;
             border-radius: 25px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
             margin-top: 15px;
+            transition: background-color 0.2s ease;
+            cursor: default;
+        }
+        .hero-badge:hover {
+            background-color: #e0a103;
         }
 
         /* Menu Section */
@@ -102,7 +126,7 @@
         .section-title {
             text-align: center;
             font-size: 36px;
-            color: #D2691E;
+            color: #FFB703; /* warm accent */
             margin-bottom: 50px;
             position: relative;
             padding-bottom: 15px;
@@ -128,12 +152,12 @@
         }
 
         .menu-card {
-            background: white;
-            border-radius: 15px;
+            background: #FFFFFF;
+            border-radius: 12px;
             padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid transparent;
         }
 
@@ -170,10 +194,23 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
 
+        /* Popsicle layout adjustments */
+        .popsicle-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .popsicle-info .item-name {
+            margin-bottom: 0; /* remove default spacing when in a row */
+        }
+        .popsicle-section .item-description {
+            text-align: left;
+        }
+
         .item-emoji {
+            display: none; /* hide decorative emojis */
             font-size: 50px;
             margin-bottom: 15px;
-            display: block;
         }
 
         .item-name {
@@ -193,10 +230,11 @@
         .item-price {
             font-size: 28px;
             font-weight: bold;
-            color: #D2691E;
-            background: linear-gradient(135deg, #FFF9E6, #FFE8D6);
+            color: #FFB703;
+            /* subtle highlight */
+            background: rgba(255, 183, 3, 0.1);
             padding: 12px 20px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: inline-block;
         }
 
@@ -205,9 +243,10 @@
             max-width: 1200px;
             margin: 60px auto;
             padding: 40px 20px;
-            background: linear-gradient(135deg, #D4F0E8 0%, #E8D5F0 100%);
+            background: #FFFFFF;
             border-radius: 20px;
             text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .about-section h2 {
@@ -247,7 +286,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .brand-name {
-                font-size: 24px;
+                font-size: 28px;
             }
 
             .hero h1 {
@@ -271,9 +310,7 @@
                 font-size: 18px;
             }
 
-            .item-emoji {
-                font-size: 40px;
-            }
+            /* emoji already hidden */
         }
     </style>
 </head>
@@ -281,19 +318,16 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <div class="logo">🍴</div>
-            <div>
-                <div class="brand-name">AARAV SNACKS</div>
-                <div class="tagline">Fresh • Tasty • Affordable</div>
-            </div>
+            <div class="brand-name">AARAV <span class="highlight">SNACKS</span></div>
         </div>
+        <div class="tagline">Fresh • Homemade • Affordable</div>
     </header>
 
     <!-- Hero Section -->
     <div class="hero">
-        <h1>Welcome to AARAV SNACKS! 👋</h1>
-        <p>Homemade goodness, made with ❤️ for the family</p>
-        <div class="hero-badge">📅 Available During 20-Day Break From 10th March to 31st March</div>
+        <h1>Welcome to AARAV SNACKS!</h1>
+        <p>Homemade goodness, made with love for the family</p>
+        <div class="hero-badge">Available During 20-Day Break From 10th March to 31st March</div>
     </div>
 
     <!-- Menu Section -->
@@ -302,7 +336,6 @@
         <div class="menu-grid">
             <!-- Item 1 -->
             <div class="menu-card">
-                <span class="item-emoji">🍕</span>
                 <div class="item-name">Bread Pizza</div>
                 <div class="item-description">Crispy bread with delicious toppings</div>
                 <div class="item-price">₹20 Per Peice</div>
@@ -310,7 +343,6 @@
 
             <!-- Item 2 -->
             <div class="menu-card">
-                <span class="item-emoji">🧀</span>
                 <div class="item-name">Grilled Cheese Sandwich</div>
                 <div class="item-description">Gooey cheese in toasted bread</div>
                 <div class="item-price">₹15 Per Peice</div>
@@ -318,7 +350,6 @@
 
             <!-- Item 3 -->
             <div class="menu-card">
-                <span class="item-emoji">🍋</span>
                 <div class="item-name">Lemonade</div>
                 <div class="item-description">Customizable sweetness & flavor</div>
                 <div class="item-price">₹10 Per Glass</div>
@@ -326,7 +357,6 @@
 
             <!-- Item 4 -->
             <div class="menu-card">
-                <span class="item-emoji">🍦</span>
                 <div class="item-name">Popsicle</div>
                 <div class="item-description">Cool & refreshing treat</div>
                 <div class="item-price">₹10 Per Peice</div>
@@ -334,7 +364,6 @@
 
             <!-- Item 5 -->
             <div class="menu-card">
-                <span class="item-emoji">🍞</span>
                 <div class="item-name">Bread Butter</div>
                 <div class="item-description">Simple & delicious and with three types: with jam, peanut butter or butter</div>
                 <div class="item-price">₹5 Per Peice</div>
@@ -342,7 +371,6 @@
 
             <!-- Item 6 -->
             <div class="menu-card">
-                <span class="item-emoji">🌱</span>
                 <div class="item-name">Sprouts</div>
                 <div class="item-description">Healthy & nutritious</div>
                 <div class="item-price">₹20 Per Plate</div>
@@ -350,10 +378,75 @@
 
             <!-- Item 7 -->
             <div class="menu-card">
-                <span class="item-emoji">⭐</span>
                 <div class="item-name">Combo Pack</div>
                 <div class="item-description">3-4 items for best value</div>
                 <div class="item-price">₹30</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popsicles Section -->
+    <section class="menu-section popsicle-section">
+        <h2 class="section-title">Popsicles</h2>
+        <div class="menu-grid">
+            <!-- Flavor 1 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Lemonade Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Tangy, refreshing, and perfect for a hot day.</div>
+            </div>
+
+            <!-- Flavor 2 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Orange Flavor Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Sweet, fruity, and naturally fun.</div>
+            </div>
+
+            <!-- Flavor 3 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Chocolate Flavor Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Rich, creamy, and loved by everyone.</div>
+            </div>
+
+            <!-- Flavor 4 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Caramel Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Sweet with a subtle caramel taste, smooth and enjoyable.</div>
+            </div>
+
+            <!-- Flavor 5 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Vanilla Flavor Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Mild, creamy, and aromatic — a classic favorite.</div>
+            </div>
+
+            <!-- Flavor 6 -->
+            <div class="menu-card">
+                <span class="item-emoji">🍡</span>
+                <div class="popsicle-info">
+                    <div class="item-name">Herbal Popsicle</div>
+                    <div class="item-price">₹10 / Mini ₹5</div>
+                </div>
+                <div class="item-description">Light, refreshing, and naturally cooling.</div>
             </div>
         </div>
     </section>
