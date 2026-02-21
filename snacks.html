@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AARAV SNACKS - Fresh & Delicious</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-gradient-start: #FFF4E0;
+            --bg-gradient-end: #FFD6A5;
+            --primary-color: #FF9F1C;
+            --secondary-color: #E85D04;
+            --text-color: #4A2E2E;
+            --card-bg: #FFF8E0; /* very light warm peach */
+            --card-shadow: rgba(0,0,0,0.05);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,21 +23,18 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* warm cream background */
-            background-color: #FFF8E7;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
-            color: #1F2937;
         }
 
         /* Header */
         header {
-            background-color: #FFF8E7;
-            padding: 30px 0 10px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: transparent;
+            padding: 20px 0;
+            /* logo stays stationary: do not use sticky positioning */
             text-align: center;
         }
 
@@ -46,15 +54,12 @@
         }
 
         .brand-name {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1F2937;
-            letter-spacing: 2px;
-            position: relative;
-            padding: 10px 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
         }
         .brand-name .highlight {
-            color: #FFB703;
+            color: var(--primary-color);
         }
         .brand-name::after {
             content: '';
@@ -64,72 +69,70 @@
             transform: translateX(-50%);
             width: 60px;
             height: 4px;
-            background-color: #FFB703;
+            background-color: var(--primary-color);
             border-radius: 2px;
             margin-top: 4px;
         }
 
         .tagline {
-            font-size: 16px;
-            color: #1F2937;
-            margin-top: 8px;
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-top: 5px;
             text-align: center;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* Hero Section */
-        .hero {
+        .hero.card {
             max-width: 1200px;
             margin: 60px auto 40px;
-            padding: 60px 20px;
+            padding: 40px 30px;
             text-align: center;
-            background: #FFFFFF;
-            border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .hero h1 {
-            font-size: 48px;
-            color: #1F2937;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-color);
             margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 18px;
-            color: #1F2937;
+            font-size: 1.125rem;
+            color: var(--text-color);
             margin-bottom: 20px;
-            line-height: 1.6;
         }
 
         .hero-badge {
             display: inline-block;
-            background-color: #FFB703;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1rem;
             font-weight: 600;
-            margin-top: 15px;
-            transition: background-color 0.2s ease;
-            cursor: default;
+            color: #fff;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .hero-badge:hover {
-            background-color: #e0a103;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         /* Menu Section */
-        .menu-section {
-            max-width: 1200px;
+        .menu-section.card {
+            padding: 0 20px 40px;
             margin: 60px auto;
-            padding: 0 20px;
         }
 
         .section-title {
             text-align: center;
-            font-size: 36px;
-            color: #FFB703; /* warm accent */
-            margin-bottom: 50px;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 30px;
             position: relative;
-            padding-bottom: 15px;
         }
 
         .section-title::after {
@@ -147,18 +150,17 @@
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
             margin-bottom: 40px;
         }
 
         .menu-card {
-            background: #FFFFFF;
-            border-radius: 12px;
-            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 2px solid transparent;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .menu-card:nth-child(1) {
@@ -190,8 +192,8 @@
         }
 
         .menu-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--card-shadow);
         }
 
         /* Popsicle layout adjustments */
@@ -214,9 +216,9 @@
         }
 
         .item-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
             margin-bottom: 10px;
         }
 
@@ -228,25 +230,26 @@
         }
 
         .item-price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #FFB703;
-            /* subtle highlight */
-            background: rgba(255, 183, 3, 0.1);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: rgba(232,93,4,0.1);
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             display: inline-block;
+            /* warm gradient text */
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* About Section */
-        .about-section {
+        .about-section.card {
             max-width: 1200px;
             margin: 60px auto;
             padding: 40px 20px;
-            background: #FFFFFF;
-            border-radius: 20px;
+            background: var(--card-bg);
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 15px var(--card-shadow);
         }
 
         .about-section h2 {
@@ -276,41 +279,18 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px;
-            background: rgba(255, 232, 214, 0.95);
-            color: #666;
-            margin-top: 60px;
-            font-size: 14px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.9rem;
+            margin-top: 40px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .brand-name {
-                font-size: 28px;
-            }
-
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .menu-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .item-name {
-                font-size: 18px;
-            }
-
-            /* emoji already hidden */
+            .brand-name { font-size: 2rem; }
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.75rem; }
+            .item-name { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -324,14 +304,14 @@
     </header>
 
     <!-- Hero Section -->
-    <div class="hero">
+    <div class="hero card">
         <h1>Welcome to AARAV SNACKS!</h1>
         <p>Homemade goodness, made with love for the family</p>
         <div class="hero-badge">Available During 20-Day Break From 10th March to 31st March</div>
     </div>
 
     <!-- Menu Section -->
-    <section class="menu-section">
+    <section class="menu-section card">
         <h2 class="section-title">Our Menu</h2>
         <div class="menu-grid">
             <!-- Item 1 -->
@@ -386,7 +366,7 @@
     </section>
 
     <!-- Popsicles Section -->
-    <section class="menu-section popsicle-section">
+    <section class="menu-section popsicle-section card">
         <h2 class="section-title">Popsicles</h2>
         <div class="menu-grid">
             <!-- Flavor 1 -->
@@ -452,7 +432,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="about-section">
+    <section class="about-section card">
         <h2>About AARAV SNACKS</h2>
         <p>Hi, I'm Aarav! I love making delicious homemade snacks for my family. During my 20-day break, I want to share my food with everyone at really reasonable prices.</p>
         <p>Everything I make is fresh and prepared with care. I don't use any store-bought items, and all the snacks are made at home. Great for quick bites and family!</p>
