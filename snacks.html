@@ -8,9 +8,10 @@
     <style>
         :root {
             --bg-gradient-start: #FFF4E0;
-            --bg-gradient-end: #FFD6A5;
+            --bg-gradient-end: #FFE0B2; /* lighter warm peach */
             --primary-color: #FF9F1C;
             --secondary-color: #E85D04;
+            --accent-color: #FF9F1C;
             --text-color: #4A2E2E;
             --card-bg: #FFF8E0; /* very light warm peach */
             --card-shadow: rgba(0,0,0,0.05);
@@ -196,6 +197,36 @@
             box-shadow: 0 8px 20px var(--card-shadow);
         }
 
+        /* Global card styles */
+        .card {
+            border-radius: 16px;
+            background: var(--card-bg);
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        /* Signature Items Section */
+        .signature-section.card {
+            background: #FFE0B2;
+            padding: 50px 20px;
+            margin: 60px auto;
+        }
+        .signature-section .section-title {
+            color: var(--secondary-color);
+        }
+        .signature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 6px 18px var(--card-shadow);
+            border: 2px solid rgba(255,159,28,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .signature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 22px var(--card-shadow);
+        }
+
         /* Popsicle layout adjustments */
         .popsicle-info {
             display: flex;
@@ -313,7 +344,29 @@
     <!-- Menu Section -->
     <section class="menu-section card">
         <h2 class="section-title">Our Menu</h2>
+        <!-- Signature items displayed first -->
+        <h3 class="signature-heading">Our Signature Dishes</h3>
         <div class="menu-grid">
+            <div class="signature-card">
+                <div class="item-name">Lemonade</div>
+                <div class="item-description">A fresh and simple lemon drink, light, refreshing and perfect for hot days.</div>
+                <div class="item-price">₹10</div>
+            </div>
+            <div class="signature-card">
+                <div class="item-name">Herbal Ice Tea</div>
+                <div class="item-description">A chilled herbal tea served with flavored herbal ice cubes that slowly release extra freshness as they melt.</div>
+                <div class="item-price">₹15</div>
+            </div>
+            <div class="signature-card">
+                <div class="item-name">Popsicle</div>
+                <div class="item-description">Natural homemade popsicles in different flavors, light, refreshing and perfect for summer.</div>
+                <div class="item-price">₹10</div>
+            </div>
+            <div class="signature-card">
+                <div class="item-name">Signature Combo</div>
+                <div class="item-description">Enjoy a special combo featuring our three signature dishes: Herbal Tea, Lemonade, and Popsicles. Perfect for tasting them all!</div>
+                <div class="item-price">₹35</div>
+            </div>
             <!-- Item 1 -->
             <div class="menu-card">
                 <div class="item-name">Bread Pizza</div>
@@ -346,7 +399,7 @@
             <div class="menu-card">
                 <div class="item-name">Bread Butter</div>
                 <div class="item-description">Simple & delicious and with three types: with jam, peanut butter or butter</div>
-                <div class="item-price">₹5 Per Peice</div>
+                <div class="item-price">₹15 Per Peice</div>
             </div>
 
             <!-- Item 6 -->
@@ -427,6 +480,24 @@
                     <div class="item-price">₹10 / Mini ₹5</div>
                 </div>
                 <div class="item-description">Light, refreshing, and naturally cooling.</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Herbal Tea Section -->
+    <section class="herbal-section card">
+        <h2 class="section-title">Herbal Tea</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="item-name">Herbal Tea</div>
+                <div class="item-description">A light and refreshing tea infused with natural herbs like mint and a hint of ginger. Simple, warm and calming.</div>
+                <div class="item-price">₹10</div>
+            </div>
+            <div class="menu-card">
+                <div class="item-name">Herbal Ice Tea</div>
+                <div class="item-description">A chilled version of herbal tea served with herbal ice cubes that slowly add more flavor as they melt.</div>
+                <div class="item-price">₹15</div>
             </div>
         </div>
     </section>
