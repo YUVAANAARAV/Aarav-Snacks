@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OrbitX Mission Control</title>
+  <style>
+    :root {
+      --bg: #0d142b;
+      --panel: #121c3c;
+      --panel-alt: #1b275a;
+      --card: #171f46;
+      --text: #e8ecff;
+      --muted: #9ca6d6;
+      --accent: #45b6ff;
+      --success: #2fd2ad;
+      --danger: #ff6f7a;
+      --border: rgba(255,255,255,0.14);
+      --radius: 12px;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      background: radial-gradient(circle at 20% 10%, #2f3d78 0%, #0b122c 40%, #060b16 100%);
+      color: var(--text);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding: 16px;
+    }
+    .app {
+      width:min(1080px,96vw);
+      border-radius:16px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(7,13,40,0.95), rgba(4,8,23,0.95));
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    }
+    .center {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:500px;
+      text-align:center;
+      padding:28px;
+      gap:16px;
+    }
+    h1 { margin:0; font-size:2rem; letter-spacing:0.4px; }
+    p { margin:0; color:var(--muted); max-width:640px; font-size:0.95rem; }
+    .btn { border:0; border-radius:10px; padding:10px 14px; font-weight:600; cursor:pointer; transition:.15s ease; }
+    .btn-primary { background: linear-gradient(135deg, #3fa6ff, #2f79ff); color:#fff; }
+    .btn-primary:hover { filter:brightness(1.05); }
+    .hidden { display:none!important; }
+    .header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.08); padding:13px 16px; background:rgba(5,10,25,0.5); }
+    .header h2 { margin:0; font-size:1.05rem; color:#e9efff; }
+    .layout { display:grid; grid-template-columns:1fr 1.1fr; min-height:72vh; }
+    .panel, .rocket-view { padding:12px; background:linear-gradient(180deg, rgba(10,18,45,0.9), rgba(6,10,22,0.96)); border-right:1px solid rgba(255,255,255,0.08); }
+    .rocket-view { border-right:none; }
+    .card { border-radius:var(--radius); background:rgba(20,32,75,0.45); border:1px solid var(--border); padding:12px; margin-bottom:10px; }
+    .section { margin-bottom:10px; }
+    h3 { margin:0 0 8px; font-size:0.92rem; color:#e7edff; }
+    .label { font-size:.8rem; color:#b9c4f5; margin:.2rem 0 4px; display:block; }
+    select,input { width:100%; border:1px solid rgba(255,255,255,0.12); border-radius:8px; background:#0f1a40; color:#e9efff; padding:8px; margin-bottom:8px; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; }
+    button.small { font-size:.82rem; }
+    .dest-grid { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:6px; }
+    .dest-grid button { text-align:left; font-size:.85rem; background:#152b66; border:1px solid rgba(255,255,255,0.1); color:#edf2ff; border-radius:8px; padding:8px; cursor:pointer; }
+    .dest-grid button.active { background: #2b4eb7; border-color:#4e85ff; }
+    .status { border:1px dashed rgba(255,255,255,0.2); border-radius:10px; padding:10px; background:rgba(5,8,20,0.65); color:#dae4ff; min-height:52px; }
+    .stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
+    .stat-card { border-radius:8px; border:1px solid rgba(255,255,255,0.1); padding:8px; background:rgba(0,0,0,.2); }
+    .slide { width:100%; height:8px; border-radius:999px; background:rgba(255,255,255,0.12); margin-top:5px; }
+    .fill { height:100%; border-radius:999px; background: linear-gradient(90deg, #5ec4ff, #4b86ff); }
+    .rocket-box { border:1px solid rgba(255,255,255,.17); border-radius:12px; background:linear-gradient(180deg, #101f4f, #051028); min-height:320px; padding:10px; }
+    .window { border:1px solid rgba(255,255,255,.2); border-radius:10px; background:linear-gradient(180deg, #213e99, #0a183d); height:90px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; font-weight:600; letter-spacing:.3px; position:relative; overflow:hidden; }
+    .window:before { content:''; position:absolute; width:100%; height:100%; background: radial-gradient(circle at 40% 30%, rgba(255,255,255,0.15), transparent 60%); }
+    .interior { border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:8px; background:rgba(3,10,26,0.8); margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+    .interior-panel { border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:6px; font-size:.85rem; background:rgba(10,24,58,0.65); }
+    .cockpit-window { border-radius:12px; border:1px solid rgba(255,255,255,0.15); background:linear-gradient(180deg, rgba(6,17,53,0.8), rgba(2,8,24,0.9)); padding:8px; margin-bottom:10px; }
+    .view-title { font-size:.82rem; color:#dce8ff; margin-bottom:6px; }
+    .space-view { border:1px solid rgba(255,255,255,0.2); border-radius:8px; background: radial-gradient(circle at 40% 20%, #8592ff 0%, #16255f 30%, #050b24 80%); height:140px; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#dbe7ff; font-size: .88rem; letter-spacing:0.2px; text-shadow:0 0 8px rgba(0,0,0,0.6); animation: skyShift 12s ease-in-out infinite alternate; }
+    .space-view::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 55%); }
+    .space-canvas { position:absolute; inset:0; z-index:1; pointer-events:none; }
+    .space-overlay { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+    .space-img { width:60px; height:60px; border-radius:50%; border:1px solid rgba(255,255,255,0.3); background: radial-gradient(circle at 30% 30%, #ffd39b 15%, #c07030 55%, #4d2a1b 100%); box-shadow: 0 0 12px rgba(255,255,255,0.25); }
+    .star { position:absolute; width:3px; height:3px; border-radius:50%; background:#fff; box-shadow:0 0 8px rgba(255,255,255,0.9); opacity:.9; animation: twinkle 4s infinite alternate; }
+    .planet { position:absolute; right:10px; bottom:10px; font-size:1rem; }
+    @keyframes skyShift { 0% { background: radial-gradient(circle at 20% 20%, #b5c7ff 0%, #2a3f83 40%, #070d25 80%); } 50% { background: radial-gradient(circle at 30% 15%, #c8eef9 0%, #2f4b8f 35%, #02132a 80%); } 100% { background: radial-gradient(circle at 40% 10%, #f0dbff 0%, #1c316e 35%, #020915 90%); } }
+    @keyframes twinkle { from { opacity:.2; transform: scale(.7);} to{ opacity:1; transform: scale(1.3);} }
+    .cockpit-console { margin-top:8px; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:8px; background:rgba(5,10,25,0.85); }
+    .cockpit-gauges-row { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:6px; margin-bottom:6px; }
+    .cockpit-gauge { border:1px solid rgba(255,255,255,0.12); border-radius:8px; background:rgba(7,17,43,0.9); padding:6px; font-size:.72rem; color:#d9e6ff; text-align:center; }
+    .cockpit-gauge strong { display:block; margin-top:3px; font-size:.95rem; color:#fff; }
+    .cockpit-controls { text-align:center; font-size:.8rem; color:#a8b8ef; border-top:1px dashed rgba(255,255,255,0.12); padding-top:6px; }
+    .log { border:1px solid rgba(255,255,255,0.12); border-radius:10px; background:rgba(0,0,0,0.3); min-height:90px; padding:8px; font-size:.85rem; line-height:1.4; overflow:auto; }
+    .fact { border:1px solid rgba(255,255,255,0.12); border-radius:8px; background:rgba(12,22,50,0.65); padding:8px; margin-top:6px; color:#eaf0ff; font-size:.9rem; }
+    @media (max-width:900px) { .layout { grid-template-columns:1fr; } .panel, .rocket-view { border-right:none; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div id="splash" class="center">
+      <div style="font-size:.8rem; color:#8f9ce1; letter-spacing:1px; text-transform:uppercase;">Mission Simulator</div>
+      <h1>OrbitX Mission Control</h1>
+      <p>Train your crew, choose a mission target, and launch a realistic yet fun space simulator with decisions that matter.</p>
+      <button class="btn btn-primary" id="startBtn">Start Mission</button>
+      <audio id="bgMusic" loop>
+        <source src="interstellar_chase.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+      </audio>
+    </div>
+
+    <div id="simulator" class="hidden">
+      <div class="header">
+        <div>
+          <h2>🚀 OrbitX Mission Control</h2>
+          <div style="color:#9ca6d6; font-size:.8rem; margin-top:2px;">Step-by-step mission setup • Minimal controls</div>
+        </div>
+        <div id="missionPhaseBadge" style="font-size:.8rem; background:rgba(255,255,255,0.07); border-radius:8px; padding:5px 8px; border:1px solid rgba(255,255,255,0.15);">Pre-launch</div>
+      </div>
+
+      <div class="layout">
+        <div class="panel">
+          <div class="card section">
+            <h3>1) Mission Target</h3>
+            <div class="dest-grid" id="destGrid">
+              <button class="dest-btn" data-dest="Moon">Moon 🌕</button>
+              <button class="dest-btn" data-dest="Mercury">Mercury ☀️</button>
+              <button class="dest-btn" data-dest="Venus">Venus 🌫️</button>
+              <button class="dest-btn" data-dest="Mars">Mars 🔴</button>
+              <button class="dest-btn" data-dest="Jupiter">Orbit Jupiter 🟠</button>
+              <button class="dest-btn" data-dest="Saturn">Orbit Saturn 🪐</button>
+              <button class="dest-btn" data-dest="Uranus">Orbit Uranus 🔵</button>
+              <button class="dest-btn" data-dest="Neptune">Orbit Neptune 🔵</button>
+              <button class="dest-btn" data-dest="Deep Space">Deep Space 🌌</button>
+            </div>
+          </div>
+
+          <div class="card section" id="setupCard">
+            <h3>2) Setup Crew & Rocket</h3>
+            <label class="label" for="agency">Agency</label>
+            <select id="agency"><option>NASA</option><option>ESA</option><option>ISRO</option><option>SpaceX</option><option>JAXA</option></select>
+            <label class="label" for="rocket">Rocket</label>
+            <select id="rocket"><option>Falcon 9</option><option>SLS</option><option>Ariane 6</option><option>GSLV Mk3</option><option>Starship</option></select>
+            <label class="label" for="crew">Crew (comma-separated)</label>
+            <input id="crew" type="text" value="Tony, Peter, Bruce">
+          </div>
+
+          <div class="card section">
+            <h3>3) Controls</h3>
+            <div class="row">
+              <button class="btn btn-primary" id="launchBtn">Launch 🚀</button>
+              <button class="btn btn-danger" id="abortBtn">Abort ❌</button>
+              <button class="btn btn-secondary" id="returnBtn">Return 🌍</button>
+            </div>
+            <div class="status" id="phaseStatus">Status: Pre-launch. Pick target and launch.</div>
+          </div>
+
+          <div class="card section">
+            <h3>Mission Log</h3>
+            <div class="log" id="log">Mission log starting...</div>
+          </div>
+        </div>
+
+        <div class="rocket-view">
+          <div class="rocket-box">
+            <div class="cockpit-window" id="rocketWindow">
+              <div class="view-title">🚀 Flight Deck View</div>
+              <div class="space-view" id="spaceView">
+                <canvas id="spaceCanvas" class="space-canvas"></canvas>
+                <div class="space-overlay">
+                  <div class="space-img" id="spaceImg"></div>
+                </div>
+                <div class="star" style="left:5%; top:20%;"></div>
+                <div class="star" style="left:32%; top:12%; animation-delay:.2s;"></div>
+                <div class="star" style="left:65%; top:25%; animation-delay:.4s;"></div>
+                <div class="star" style="left:85%; top:55%; animation-delay:.12s;"></div>
+                <div class="star" style="left:22%; top:68%; animation-delay:.35s;"></div>
+                <div class="planet" id="planetIcon">🌑</div>
+              </div>
+            </div>
+            <div class="interior" style="grid-template-columns:1fr 1fr 1fr; gap:6px;">
+              <div class="interior-panel"><strong>Flight Crew</strong><div style="margin-top:4px; color:#c8d6ff;">Pilot: <span id="pilotName">Ravi</span></div><div style="color:#c8d6ff;">Lead: <span id="leadName">Amina</span></div><div style="color:#c8d6ff;">Engineer: <span id="engineerName">Lee</span></div></div>
+              <div class="interior-panel"><strong>Command HUD</strong><div style="margin-top:4px; color:#c8d6ff;">Heading: <span id="heading">Awaiting</span></div><div style="color:#c8d6ff;">Altitude: <span id="altitude">0 km</span></div><div style="color:#c8d6ff;">Velocity: <span id="speedVal">0 km/s</span></div></div>
+              <div class="interior-panel"><strong>Systems</strong><div style="margin-top:4px; color:#c8d6ff;">Fuel: <span id="fuelPct">100%</span></div><div style="color:#c8d6ff;">Oxygen: <span id="oxyPct">100%</span></div><div style="color:#c8d6ff;">Status: <span id="phaseText">Pre-launch</span></div></div>
+            </div>
+            <div class="cockpit-console">
+              <div class="cockpit-gauges-row">
+                <div class="cockpit-gauge"><span>ALT</span><strong id="altGauge">0 km</strong></div>
+                <div class="cockpit-gauge"><span>SPD</span><strong id="spdGauge">0 km/s</strong></div>
+                <div class="cockpit-gauge"><span>FUEL</span><strong id="fuelGauge">100%</strong></div>
+                <div class="cockpit-gauge"><span>O2</span><strong id="oxyGauge">100%</strong></div>
+              </div>
+              <div class="cockpit-controls">Flight Deck Controls • Launch • Abort • Return</div>
+            </div>
+            <div class="stats">
+              <div class="stat-card"><strong>Destination</strong><div id="currentDestination">None</div></div>
+              <div class="stat-card"><strong>Phase</strong><div id="phaseText">Pre-launch</div></div>
+              <div class="stat-card"><strong>Fuel</strong><div id="fuelPct">100%</div><div class="slide"><div class="fill" id="fuelFill" style="width:100%"></div></div></div>
+              <div class="stat-card"><strong>Oxygen</strong><div id="oxyPct">100%</div><div class="slide"><div class="fill" id="oxyFill" style="width:100%"></div></div></div>
+            </div>
+            <div class="stats" style="margin-top:8px">
+              <div class="stat-card"><strong>Rocket</strong><div id="rocketName">Falcon 9</div></div>
+              <div class="stat-card"><strong>Crew</strong><div id="crewNames">Ravi, Amina, Lee</div></div>
+              <div class="stat-card"><strong>Speed</strong><div id="speedVal">0 km/s</div></div>
+              <div class="stat-card"><strong>Agency</strong><div id="agencyName">NASA</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Space Fact</h3>
+            <div class="fact" id="factBox">Choose a destination to see a fact.</div>
+            <div class="fact">Jupiter is the largest planet. Saturn has visible rings. Venus is hottest. Mars has tallest volcano.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const splash = document.getElementById('splash');
+    const simulator = document.getElementById('simulator');
+    const startBtn = document.getElementById('startBtn');
+    const agency = document.getElementById('agency');
+    const rocket = document.getElementById('rocket');
+    const crewInput = document.getElementById('crew');
+    const crewNames = document.getElementById('crewNames');
+    const rocketName = document.getElementById('rocketName');
+    const phaseStatus = document.getElementById('phaseStatus');
+    const log = document.getElementById('log');
+    const currentDestination = document.getElementById('currentDestination');
+    const phaseText = document.getElementById('phaseText');
+    const factBox = document.getElementById('factBox');
+    const fuelPct = document.getElementById('fuelPct');
+    const oxyPct = document.getElementById('oxyPct');
+    const speedVal = document.getElementById('speedVal');
+    const fuelFill = document.getElementById('fuelFill');
+    const oxyFill = document.getElementById('oxyFill');
+    const rocketWindow = document.getElementById('rocketWindow');
+    const missionPhaseBadge = document.getElementById('missionPhaseBadge');
+    const bgMusic = document.getElementById('bgMusic');
+    const pilotName = document.getElementById('pilotName');
+    const leadName = document.getElementById('leadName');
+    const heading = document.getElementById('heading');
+    const altitude = document.getElementById('altitude');
+
+    const launchBtn = document.getElementById('launchBtn');
+    const abortBtn = document.getElementById('abortBtn');
+    const returnBtn = document.getElementById('returnBtn');
+    const destButtons = document.querySelectorAll('.dest-btn');
+    const spaceCanvas = document.getElementById('spaceCanvas');
+
+    let mission = {
+      launched: false,
+      destination: null,
+      phase: 'Pre-launch',
+      fuel: 100,
+      oxygen: 100,
+      speed: 0,
+      landed: false,
+      failed: false,
+    };
+
+    function addLog(msg) {
+      const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+      log.innerHTML = `<div>[${time}] ${msg}</div>` + log.innerHTML;
+    }
+
+    function updateTelemetry() {
+      const crewList = crewInput.value.trim() || 'Mission Crew';
+      crewNames.textContent = crewList;
+      const crewParts = crewList.split(',').map((s) => s.trim()).filter(Boolean);
+      pilotName.textContent = crewParts[0] || 'Ravi';
+      leadName.textContent = crewParts[1] || 'Amina';
+      rocketName.textContent = rocket.value;
+      fuelPct.textContent = `${Math.max(0, mission.fuel.toFixed(0))}%`;
+      oxyPct.textContent = `${Math.max(0, mission.oxygen.toFixed(0))}%`;
+      speedVal.textContent = `${mission.speed.toFixed(1)} km/s`;
+      document.getElementById('altGauge').textContent = mission.launched ? `${(mission.speed * 5).toFixed(0)} km` : '0 km';
+      document.getElementById('spdGauge').textContent = `${mission.speed.toFixed(1)} km/s`;
+      document.getElementById('fuelGauge').textContent = `${Math.max(0, mission.fuel.toFixed(0))}%`;
+      document.getElementById('oxyGauge').textContent = `${Math.max(0, mission.oxygen.toFixed(0))}%`;
+      fuelFill.style.width = `${Math.max(0, mission.fuel)}%`;
+      oxyFill.style.width = `${Math.max(0, mission.oxygen)}%`;
+      currentDestination.textContent = mission.destination || 'None';
+      phaseText.textContent = mission.phase;
+      missionPhaseBadge.textContent = mission.phase;
+      phaseStatus.textContent = `Status: ${mission.phase}`;
+      heading.textContent = mission.destination ? `${mission.destination} vector` : 'Awaiting target';
+      altitude.textContent = mission.launched ? `${(mission.speed * 5).toFixed(0)} km` : '0 km';
+      const viewTitle = document.querySelector('.view-title');
+      if (viewTitle) viewTitle.textContent = mission.destination ? `🚀 ${mission.destination} Flight Deck` : '🚀 Flight Deck View';
+      updateSpacePicture();
+    }
+
+    function updateSpacePicture() {
+      const spaceView = document.getElementById('spaceView');
+      const spaceImg = document.getElementById('spaceImg');
+      const planetIcon = document.getElementById('planetIcon');
+      if (!spaceView || !spaceImg || !planetIcon) return;
+      const dest = mission.destination || 'Space';
+      const mapping = {
+        Moon: { color: '#ffd9ac', icon:'🌕', gradient:'#463f68, #2f4f9f, #0d1535' },
+        Mercury: { color: '#d8b372', icon:'☀️', gradient:'#55360e, #7f4818, #1f101b' },
+        Venus: { color: '#f6c9a5', icon:'🌫️', gradient:'#5f3c26, #8c4f38, #21141c' },
+        Mars: { color: '#ff8a5e', icon:'🔴', gradient:'#5a1d26, #8e3d3f, #16111f' },
+        Jupiter: { color: '#f8d08d', icon:'🟠', gradient:'#594620, #7f5f28, #1f1a2f' },
+        Saturn: { color: '#f8e9b8', icon:'🪐', gradient:'#4c3d2e, #6e5740, #1b1a2d' },
+        Uranus: { color: '#6fd3ff', icon:'🔵', gradient:'#2c486f, #1f557b, #0e2035' },
+        Neptune: { color: '#6d9cff', icon:'🔵', gradient:'#1f2b5d, #1b3a70, #080f2b' },
+        'Deep Space': { color: '#c9c6ff', icon:'🌌', gradient:'#1c2d52, #0f1f36, #03080f' },
+      };
+      const pick = mapping[dest] || {color:'#d7defc', icon:'✨', gradient:'#293f8a, #1b2f5b, #030a19'};
+      spaceView.style.background = `radial-gradient(circle at 30% 30%, #b7cdff 0%, ${pick.gradient})`;
+      spaceImg.style.background = `radial-gradient(circle at 30% 30%, #fff 0%, ${pick.color} 42%, #2b2f5f 100%)`;
+      planetIcon.textContent = pick.icon;
+      spaceImg.style.transform = `translateY(${mission.launched ? '-2px' : '0'}) rotate(${mission.speed * 3}deg)`;
+      if (mission.launched) {
+        const wave = Math.floor((mission.speed + mission.fuel) % 10) * 1.5;
+        spaceView.style.boxShadow = `0 0 ${20 + wave}px rgba(119, 184, 255, 0.35)`;
+      }
+      drawCockpitStars();
+    }
+
+    function drawCockpitStars() {
+      const canvas = document.getElementById('spaceCanvas');
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const starCount = 50;
+      const t = Date.now() / 120;
+      for (let i = 0; i < starCount; i++) {
+        const phase = i * 0.4;
+        const x = (i * 53 + t * 14) % canvas.width;
+        const y = (i * 29 + Math.sin(t + phase) * 15 + canvas.height / 2) % canvas.height;
+        const alpha = 0.3 + 0.5 * Math.abs(Math.sin((t / 2) + phase));
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        const r = 0.7 + Math.abs(Math.sin(t + phase)) * 1.1;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+
+    function animateCockpit() {
+      const spaceView = document.getElementById('spaceView');
+      if (!spaceView) return;
+      const motion = Math.sin(Date.now() / 900) * 15;
+      spaceView.style.filter = `hue-rotate(${motion}deg) saturate(1.05)`;
+      drawCockpitStars();
+      requestAnimationFrame(animateCockpit);
+    }
+
+    function setPhase(phase) {
+      mission.phase = phase;
+      updateTelemetry();
+    }
+
+    function startLaunch() {
+      if (!mission.destination) { addLog('Choose a destination first.'); return; }
+      if (mission.launched) { addLog('Already in flight.'); return; }
+      mission.launched = true;
+      mission.failed = false;
+      mission.landed = false;
+      mission.phase = 'Ascending';
+      mission.speed = 2.8;
+      addLog(`🚀 Launch sequence started toward ${mission.destination}.`);
+      updateTelemetry();
+      simulateFlight();
+
+      if (['Moon','Mars'].includes(mission.destination)) {
+        setTimeout(() => finalizeDestination(mission.destination, true, 0.12), 2100);
+      } else if (['Mercury','Venus'].includes(mission.destination)) {
+        setTimeout(() => finalizeDestination(mission.destination, false, 0.35), 2200);
+      } else if (['Jupiter','Saturn','Uranus','Neptune'].includes(mission.destination)) {
+        setTimeout(() => finalizeDestination(mission.destination, false, 0.08), 2200);
+      } else if (mission.destination === 'Deep Space') {
+        setTimeout(() => runDeepSpaceEvent(), 2200);
+      }
+    }
+
+    function abortMission() {
+      if (!mission.launched) { addLog('No active mission to abort.'); return; }
+      mission.launched = false;
+      mission.failed = true;
+      mission.phase = 'Mission Aborted';
+      mission.speed = 0;
+      addLog('❌ Mission aborted. Returning to pad.');
+      mission.fuel = Math.min(100, mission.fuel + 8);
+      updateTelemetry();
+    }
+
+    function returnToEarth() {
+      if (!mission.launched) { addLog('No mission in progress.'); return; }
+      mission.phase = 'Returning to Earth';
+      mission.speed = 7.6;
+      addLog('🌍 Initiating Earth return.');
+      updateTelemetry();
+      setTimeout(() => {
+        mission.launched = false;
+        mission.phase = 'Mission Complete - Earth';
+        mission.speed = 0;
+        mission.fuel = Math.max(0, mission.fuel - 10);
+        mission.oxygen = Math.max(0, mission.oxygen - 8);
+        addLog('✅ Crew landed safely on Earth.');
+        updateTelemetry();
+      }, 1600);
+    }
+
+    function navigate(destination) {
+      mission.destination = destination;
+      destButtons.forEach(b => b.classList.toggle('active', b.dataset.dest === destination));
+      factBox.textContent = destinationFacts(destination);
+      addLog(`🛰️ Destination set to ${destination}.`);
+      setPhase('Target Selected');
+      updateTelemetry();
+    }
+
+    function destinationFacts(dest) {
+      const facts = {
+        'Moon': 'The Moon is Earth’s nearest neighbor and your first landing target.',
+        'Mercury': 'Mercury is closest to the Sun and has extreme heat swings.',
+        'Venus': 'Venus is the hottest planet due to a runaway greenhouse effect.',
+        'Mars': 'Mars has Olympus Mons, the tallest volcano in our Solar System.',
+        'Jupiter': 'Jupiter is the largest planet and has a huge magnetosphere.',
+        'Saturn': 'Saturn has bright rings built from ice and rock particles.',
+        'Uranus': 'Uranus rotates on its side and has a blue-green atmosphere.',
+        'Neptune': 'Neptune has supersonic winds and deep blue storms.',
+        'Deep Space': 'Deep Space missions reveal unknown objects and strange signals.'
+      };
+      return facts[dest] || 'Pick a destination to learn a quick fact.';
+    }
+
+    function randomChance(prob) { return Math.random() < prob; }
+
+    function finalizeDestination(dest, landingPossible, risk) {
+      if (!mission.launched || mission.failed) return;
+      mission.fuel = Math.max(0, mission.fuel - 16);
+      mission.oxygen = Math.max(0, mission.oxygen - 12);
+
+      if (randomChance(risk)) {
+        mission.failed = true;
+        mission.launched = false;
+        mission.phase = 'Mission Failed: hazard';
+        mission.speed = 0;
+        addLog(`⚠️ Failure at ${dest} due to extreme conditions.`);
+        updateTelemetry();
+        return;
+      }
+
+      if (landingPossible) {
+        mission.landed = true;
+        mission.phase = `Landed on ${dest}`;
+        mission.speed = 0;
+        addLog(`🏁 Success! Landed on ${dest}.`);
+      } else if (['Jupiter','Saturn','Uranus','Neptune'].includes(dest)) {
+        mission.phase = `Orbiting ${dest}`;
+        mission.speed = 18;
+        addLog(`🪐 Orbit achieved around ${dest}. Landing not possible.`);
+      } else {
+        mission.phase = `Flyby ${dest}`;
+        mission.speed = 12;
+        addLog(`📡 Approach complete. Survey at ${dest}.`);
+      }
+      updateTelemetry();
+    }
+
+    function runDeepSpaceEvent() {
+      if (!mission.launched || mission.failed) return;
+      const events = [
+        'Discovered a rare comet and collected samples.',
+        'Encountered a micro meteor shower; shields held strong.',
+        'Detected mysterious deep-space signal; science team excited.',
+        'Recorded a unique pulsar pulse with mission instruments.'
+      ];
+      const pick = events[Math.floor(Math.random() * events.length)];
+      mission.phase = 'Deep Space Event';
+      mission.fuel = Math.max(0, mission.fuel - 10);
+      mission.oxygen = Math.max(0, mission.oxygen - 8);
+      mission.speed = 16;
+      addLog(`🌌 ${pick}`);
+      updateTelemetry();
+    }
+
+    function simulateFlight() {
+      const interval = setInterval(() => {
+        if (!mission.launched || mission.failed) { clearInterval(interval); return; }
+        mission.fuel = Math.max(0, mission.fuel - 1.8);
+        mission.oxygen = Math.max(0, mission.oxygen - 1.2);
+        mission.speed = Math.min(20, mission.speed + 0.5);
+        if (mission.fuel < 15 || mission.oxygen < 15) {
+          setPhase('Warning: Low resources');
+          addLog('⚠️ Warning: Low fuel/oxygen. Consider returning.');
+        }
+        if (mission.fuel <= 0 || mission.oxygen <= 0) {
+          mission.failed = true;
+          mission.launched = false;
+          mission.phase = 'Mission Failed: life support lost';
+          mission.speed = 0;
+          addLog('💥 Mission failed: fuel or oxygen depleted.');
+          clearInterval(interval);
+        }
+        updateTelemetry();
+      }, 1400);
+    }
+
+    startBtn.addEventListener('click', () => {
+      splash.classList.add('hidden');
+      simulator.classList.remove('hidden');
+      updateTelemetry();
+      addLog('Simulator ready. Pick destination and launch.');
+      if (bgMusic) {
+        bgMusic.play().catch(() => {
+          addLog('🔊 Background audio is ready. Click play in the audio control to listen.');
+        });
+      }
+      animateCockpit();
+    });
+
+    launchBtn.addEventListener('click', () => {
+      startLaunch();
+      heading.textContent = mission.destination ? `${mission.destination} vector` : 'Awaiting target';
+      altitude.textContent = mission.launched ? '120 km' : '0 km';
+    });
+    abortBtn.addEventListener('click', abortMission);
+    returnBtn.addEventListener('click', returnToEarth);
+
+    destButtons.forEach(button => {
+      button.addEventListener('click', () => navigate(button.dataset.dest));
+    });
+
+    agency.addEventListener('change', () => { addLog(`Agency selected: ${agency.value}.`); document.getElementById('agencyName').textContent = agency.value; });
+    rocket.addEventListener('change', () => { addLog(`Rocket selected: ${rocket.value}.`); updateTelemetry(); });
+    crewInput.addEventListener('input', updateTelemetry);
+
+    updateTelemetry();
+  </script>
+</body>
+</html>
