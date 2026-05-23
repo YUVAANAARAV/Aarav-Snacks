@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artemis Missions Wiki</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root{
+      --bg1: #050417;
+      --bg2: #10102a;
+      --muted-text: #d6e6ff;
+      --soft-text: #c8d9ff;
+      --accent: #b8a7ff;
+      --glass: rgba(255,255,255,0.04);
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: 'Segoe UI', Roboto, -apple-system, system-ui, sans-serif;
+      color:var(--muted-text);
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(200,216,255,0.03) 0%, transparent 20%),
+        radial-gradient(ellipse at 80% 80%, rgba(184,167,255,0.03) 0%, transparent 18%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 60%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* subtle starfield */
+    .stars{position:fixed; inset:0; pointer-events:none; background-image: radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.85), transparent), radial-gradient(1px 1px at 40% 35%, rgba(255,255,255,0.6), transparent); opacity:0.8; mix-blend-mode:screen;}
+
+    .wrap{width:min(980px,94vw); margin:40px auto;}
+
+    /* Lobby screen */
+    .lobby{min-height:68vh; display:flex; align-items:center; justify-content:center; border-radius:14px; padding:36px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 40px rgba(2,4,20,0.6);}
+    .lobby-inner{text-align:center; max-width:820px;}
+    .app-title{font-size:2.6rem; background:linear-gradient(90deg,var(--accent), #a8d8ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;}
+    .subtitle{color:var(--soft-text); margin-bottom:18px; letter-spacing:0.6px;}
+    .lobby-quote{color:#cfc6ff; font-style:italic; margin:14px 0 22px; opacity:0.95}
+    .start-btn{background:linear-gradient(90deg,var(--accent), #a8d8ff); color:#070719; border:0; padding:14px 28px; font-weight:700; border-radius:999px; cursor:pointer; box-shadow:0 6px 20px rgba(168,216,255,0.12);}
+
+    /* main container hidden until start */
+    .container{display:none; background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); border-radius:12px; padding:28px; border:1px solid var(--glass); box-shadow:0 18px 60px rgba(2,4,20,0.55);}
+
+    header{ text-align:center; margin-bottom:28px; }
+    header h1{font-size:2rem; margin-bottom:8px; background:linear-gradient(90deg,#b8a7ff,#a8d8ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+    header p.lead{color:var(--soft-text); margin-bottom:12px}
+
+    .mission-selector{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:20px}
+    .mission-btn{padding:10px 16px;border-radius:999px;border:1px solid rgba(168,216,255,0.12);background:transparent;color:var(--soft-text);cursor:pointer}
+    .mission-btn.active{background:linear-gradient(90deg,#b8a7ff33,#a8d8ff33); color:#fff; box-shadow:0 6px 18px rgba(168,216,255,0.06)}
+
+    .mission-content{background:rgba(255,255,255,0.02); border-radius:10px; padding:26px; display:none}
+    .mission-content.active{display:block}
+    .mission-title{color:#cfe3ff; font-size:1.6rem; margin-bottom:6px}
+    .mission-year{color:#d0c8ff; opacity:0.85; margin-bottom:14px}
+    .mission-section h3{color:#d1c7ff}
+    .mission-section p{color:var(--muted-text); line-height:1.6}
+    .highlight-tag{background:rgba(168,216,255,0.06); border:1px solid rgba(168,216,255,0.08); color:var(--soft-text); padding:6px 10px; border-radius:999px}
+
+    .footer{text-align:center;color:#9aa6bb;margin-top:26px;font-size:0.9rem}
+
+    @media (max-width:720px){.wrap{margin:20px} .app-title{font-size:1.8rem}}
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="lobby" id="lobby">
+      <div class="lobby-inner">
+        <div class="app-title">LUNAR LOBBY</div>
+        <div class="subtitle">your ultimate guide to the Artemis program</div>
+        <p class="lobby-quote">"Space, Neither you nor me, None knows what's out there, But we know something, Its infinite."<br><small style="color:var(--soft-text)">— Aarav Gupta</small></p>
+        <button id="startBtn" class="start-btn">Enter the Wiki</button>
+      </div>
+    </div>
+
+    <main class="container" id="mainApp" role="main">
+      <header>
+        <h1>🚀 ARTEMIS</h1>
+        <p class="lead">Deep but readable mission notes — concise, factual, and designed for curious minds.</p>
+      </header>
+
+      <div class="mission-selector">
+        <button class="mission-btn active" data-mission="artemis2">Artemis II</button>
+        <button class="mission-btn" data-mission="artemis3">Artemis III</button>
+        <button class="mission-btn" data-mission="artemis4">Artemis IV</button>
+        <button class="mission-btn" data-mission="artemis5">Artemis V+</button>
+      </div>
+
+      <!-- Artemis II -->
+      <section id="artemis2" class="mission-content active">
+        <div class="mission-title">Artemis II</div>
+        <div class="mission-year">Target: mid-2020s</div>
+
+        <div class="mission-section">
+          <h3>Overview</h3>
+          <p>Artemis II will be the first crewed mission in the Artemis program: a lunar flyby that validates Orion and crew systems in the deep-space environment. The spacecraft will travel to lunar distance and return, enabling astronauts to test procedures, life support, navigation, and communications before surface missions.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Launch Vehicle</h3>
+          <p>This mission will launch atop NASA's Space Launch System (SLS) — currently the agency's most powerful operating rocket — pairing SLS with the Orion crew vehicle to send astronauts on a roughly 10-day mission around the Moon and back.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Key Objectives</h3>
+          <p>Prove Orion's systems in a crewed, lunar-distance flight; verify life support and crew operations for multi-day missions; exercise navigation and communication links; and collect vital performance data that informs landing mission planning.</p>
+        </div>
+
+        <div class="highlights" aria-hidden>
+          <span class="highlight-tag">🛸 Orion</span>
+          <span class="highlight-tag">🚀 SLS</span>
+          <span class="highlight-tag">👩‍🚀 4 crew</span>
+          <span class="highlight-tag">🔁 Flyby</span>
+        </div>
+        <div class="mission-section">
+          <h3>Notable Facts</h3>
+          <p>Launch vehicle: Space Launch System (SLS), the most powerful rocket NASA is currently operating. Orion will carry a 4-person crew on a ~10-day mission to lunar distance and back. This flight will be the first crewed test of Orion in deep space.</p>
+        </div>
+      </section>
+
+      <!-- Artemis III -->
+      <section id="artemis3" class="mission-content">
+        <div class="mission-title">Artemis III</div>
+        <div class="mission-year">Target: late 2020s</div>
+
+        <div class="mission-section">
+          <h3>Overview</h3>
+          <p>Artemis III aims to return humans to the lunar surface, landing astronauts near the south pole. The mission demonstrates surface operations, science sampling, and the use of a human landing system launched and staged from lunar orbit (with Gateway elements contributing to logistics).</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Science & Exploration</h3>
+          <p>Key work includes sampling permanently shadowed regions, studying volatile deposits like water ice, and demonstrating field techniques and power systems that enable longer stays on the Moon.</p>
+        </div>
+        <div class="mission-section">
+          <h3>Notable Facts</h3>
+          <p>Artemis III will employ a Human Landing System (HLS) to ferry astronauts from lunar orbit to the surface; the Gateway station is planned as an orbital waypoint. Focused on south-pole science, this mission will test extended surface operations and sample collection.</p>
+        </div>
+      </section>
+
+      <!-- Artemis IV -->
+      <section id="artemis4" class="mission-content">
+        <div class="mission-title">Artemis IV</div>
+        <div class="mission-year">Target: late 2020s–early 2030s</div>
+
+        <div class="mission-section">
+          <h3>Overview</h3>
+          <p>Artemis IV will expand crewed operations and begin deploying infrastructure modules and support systems. Surface stays grow longer and mission teams test sustained logistics and habitats.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Objectives</h3>
+          <p>Deploy power systems, test resource utilization demos, and practice assembly/upkeep tasks that future missions will depend on for sustained presence.</p>
+        </div>
+        <div class="mission-section">
+          <h3>Notable Facts</h3>
+          <p>Artemis IV will begin delivering and testing infrastructure elements — power, communications, and habitat components — and will validate logistics chains needed for multi-week surface campaigns.</p>
+        </div>
+      </section>
+
+      <!-- Artemis V+ (includes details through Artemis 8) -->
+      <section id="artemis5" class="mission-content">
+        <div class="mission-title">Artemis V & Beyond</div>
+        <div class="mission-year">Target: 2030s — roadmap through Artemis 8</div>
+
+        <div class="mission-section">
+          <h3>Long-term Vision</h3>
+          <p>After Artemis V, the program transitions toward a cadence of missions (Artemis 6, 7, 8...) that build the capability for sustained lunar operations: rotating crews, expanded science stations, and construction of surface infrastructure that supports long-duration stays.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Artemis 6–8 Highlights</h3>
+          <p>Artemis 6 & 7 will continue to mature landing and logistics operations, supply the Gateway, and support multi-week surface campaigns. By Artemis 8 the program expects to routinely deploy habitat components and ISRU demonstrations, moving from short sorties toward the first sustained surface campaigns and more complex science objectives.</p>
+        </div>
+
+        <div class="mission-section">
+          <h3>Path to Mars</h3>
+          <p>The Moon serves as a testbed: life-support advances, radiation shielding, and In-Situ Resource Utilization (ISRU) trials from Artemis missions directly inform Mars-bound architectures and crewed deep-space operations.</p>
+        </div>
+
+        <div class="highlights" aria-hidden>
+          <span class="highlight-tag">🌍 Partnerships</span>
+          <span class="highlight-tag">🏗️ Habitats</span>
+          <span class="highlight-tag">🔬 Science</span>
+          <span class="highlight-tag">🚀 Mars Prep</span>
+        </div>
+        <div class="mission-section">
+          <h3>Notable Facts</h3>
+          <p>Artemis V and the follow-on missions (6–8) emphasize ISRU demonstrations, rotating crews, and routine delivery of habitat modules. By Artemis 8 the program aims to support regular, longer-duration surface stays and robust science campaigns that feed directly into Mars mission planning.</p>
+        </div>
+      </section>
+
+      <footer class="footer">Artemis: returning humans to the Moon and preparing for Mars exploration</footer>
+    </main>
+  </div>
+
+  <script>
+    // lobby start behavior and mission tabbing
+    const startBtn = document.getElementById('startBtn');
+    const lobby = document.getElementById('lobby');
+    const mainApp = document.getElementById('mainApp');
+    startBtn.addEventListener('click', () => {
+      lobby.style.display = 'none';
+      mainApp.style.display = 'block';
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // mission tabs
+    const missionBtns = document.querySelectorAll('.mission-btn');
+    const missionContents = document.querySelectorAll('.mission-content');
+    missionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.mission;
+        missionBtns.forEach(b => b.classList.remove('active'));
+        missionContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const el = document.getElementById(id);
+        if(el) el.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
