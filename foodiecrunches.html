@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FOODIE CRUNCHES — Menu</title>
+  <style>
+    :root{
+      --bg: #f6fbf8; /* soft mint */
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #1f2937; /* dark slate for contrast */
+      --accent: #9fd7c2; /* pastel green */
+      --accent-2: #ffd9e0; /* soft pastel pink for small accents */
+      --radius: 14px;
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,var(--bg), #f0f7f3);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .wrap{width:100%;max-width:860px}
+
+    header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .brand{
+      background: linear-gradient(135deg, var(--card), var(--glass));
+      padding:18px 20px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(31,41,55,0.06);
+      border:1px solid rgba(31,41,55,0.04);
+    }
+
+    h1.title{font-size:1.05rem;margin:0;color:var(--text);letter-spacing:0.06em;text-transform:uppercase}
+    p.lead{margin:8px 0 0;color:var(--muted);font-size:0.95rem}
+
+    .intro{
+      margin:18px 0 26px;
+      padding:18px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(159,215,194,0.18), rgba(255,255,255,0.45));
+      border:1px solid rgba(31,41,55,0.03);
+      color:var(--text);
+    }
+
+    main{display:grid;gap:18px}
+
+    .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(31,41,55,0.04);border:1px solid rgba(31,41,55,0.04)}
+
+    .section-title{font-size:1rem;margin:0 0 12px;color:var(--text);letter-spacing:0.03em}
+
+    ul.menu{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    li.item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:transparent}
+    .name{color:var(--text);font-weight:600}
+    .price{color:var(--muted)}
+
+    /* full width for single column categories */
+    .full{grid-column:1/-1}
+
+    footer{margin-top:22px;text-align:center;color:var(--muted);font-size:0.92rem}
+
+    /* responsive */
+    @media (max-width:780px){
+      .menu-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1 class="title">WELCOME TO FOODIE CRUNCHES</h1>
+        <p class="lead">Hi! I am Aadhrit and I am opening a cafeteria. If you want to order, come to my flat A406.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <h1 style="font-size:1.15rem;margin:0"> OUR MENU</h1>
+      </section>
+
+      <div class="menu-grid">
+        <section class="card">
+          <h2 class="section-title">SNACKS</h2>
+          <ul class="menu" aria-label="Snacks">
+            <li class="item"><span class="name">Makhana</span><span class="price"> ₹100 per bowl</span></li>
+            <li class="item"><span class="name">Bhujia</span><span class="price">₹50 per bowl</span></li>
+            <li class="item"><span class="name">Chocolate Popsicle</span><span class="price">₹15 per piece</span></li>
+            <li class="item"><span class="name">Vanilla Popsicle</span><span class="price">₹15 per piece</span></li>
+            <li class="item"><span class="name">Herbal Popsicle</span><span class="price">₹15 per piece</span></li>
+            <li class="item"><span class="name">Chocolate Sandwich</span><span class="price">₹25 per plate</span></li>
+            <li class="item"><span class="name">Cheese Sandwich(Toasted/Non-Toasted)</span><span class="price">₹25 per plate</span></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2 class="section-title">MAIN COURSE</h2>
+          <ul class="menu" aria-label="Main course">
+            <li class="item"><span class="name">Mixed Sandwich</span><span class="price">₹30 per plate</span></li>
+            <li class="item"><span class="name">Salad</span><span class="price">₹50 per bowl</span></li>
+            <li class="item"><span class="name">Fruit Salad</span><span class="price">₹50 per bowl</span></li>
+            <li class="item"><span class="name">Aadhrit's Special Sprouts</span><span class="price">₹20 per bowl</span></li>
+          </ul>
+        </section>
+
+        <section class="card full">
+          <h2 class="section-title">DRINKS</h2>
+          <ul class="menu" aria-label="Drinks">
+            <li class="item"><span class="name">Lemonade</span><span class="price">₹15 per glass</span></li>
+            <li class="item"><span class="name">Water</span><span class="price">Complimentary</span></li>
+            <li class="item"><span class="name">Herbal Iced Tea</span><span class="price">₹15 per glass</span></li>
+            <li class="item"><span class="name">Masala Tea</span><span class="price">₹25 per cup</span></li>
+             <li class="item"><span class="name">Coffee</span><span class="price">₹25 per cup</span></li>
+          </ul>
+        </section>
+      </div>
+      <footer>
+        <div style="padding:12px 14px;border-radius:10px;display:inline-block;background:rgba(159,215,194,0.08);border:1px solid rgba(31,41,55,0.03)">AVAILABLE ON SATURDAYS AND SUNDAYS FROM 1 P.M.</div>
+      </footer>
+
+      <footer>
+        <div style="padding:12px 14px;border-radius:10px;display:inline-block;background:rgba(159,215,194,0.08);border:1px solid rgba(31,41,55,0.03)">Thank you for visiting Foodie Crunches — Aadhrit</div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
